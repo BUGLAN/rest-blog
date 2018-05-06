@@ -2,7 +2,7 @@ from flask_migrate import Migrate, MigrateCommand
 from flask_script import Server, Manager
 
 from blog import create_app
-from blog.models import Article
+from blog.models import Article, User, Category
 from config import BaseConfig
 from extand import db
 
@@ -17,7 +17,7 @@ manager.add_command('db', MigrateCommand)
 
 @manager.shell
 def manager_shell_context():
-    return dict(Article=Article)
+    return dict(Article=Article, User=User, Category=Category, db=db)
 
 
 if __name__ == '__main__':
