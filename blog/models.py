@@ -19,6 +19,14 @@ class User(db.Model):
         return '<User %r>' % self.name
 
 
+article_tag = db.Table(
+    'post_tag',
+    db.Column('id', db.Integer, primary_key=True),
+    db.Column('article_id', db.Integer, db.ForeignKey('article.id')),
+    db.Column('tag_id', db.Integer, db.ForeignKey('tag.id'))
+)
+
+
 class Article(db.Model):
     __tablename__ = 'article'
 
@@ -28,6 +36,12 @@ class Article(db.Model):
     create_time = db.Column(db.DateTime)
     update_time = db.Column(db.DateTime)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+    tags = db.relationship(
+        'Tag',
+        secondary=article_tag,
+        backref=db.backref('articles', lazy='dynamic'),
+        lazy='dynamic'
+    )
 
     def __init__(self):
         super(Article, self).__init__()
@@ -45,7 +59,7 @@ class Category(db.Model):
     name = db.Column(db.String(58), unique=True)
     create_time = db.Column(db.DateTime)
     update_time = db.Column(db.DateTime)
-    article = db.relationship('Article', backref='category')
+    articles = db.relationship('Article', backref='category')
 
     def __init__(self):
         super(Category, self).__init__()
@@ -54,3 +68,12 @@ class Category(db.Model):
 
     def __repr__(self):
         return "<Category %r>" % self.name
+
+
+class Tag(db.Model):
+    __tablename__ = 'tag'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(58), unique=True)
+    create_time = db.Column(db.DateTime)
+    update_time = db.Column(db.DateTime)

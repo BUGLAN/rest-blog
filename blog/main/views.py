@@ -1,6 +1,6 @@
 from blog.main import m
 from flask import jsonify, request, current_app
-from blog.models import Article, Category
+from blog.models import Article, Category, Tag
 from datetime import datetime
 from extand import db
 
@@ -27,15 +27,17 @@ def get_article():
         title = request.args.get('title')
         if title:
             article = Article.query.filter_by(title=title).first()
-            return jsonify({'article': {'title': article.title, 'content': article.content,
-                                        'date': article.create_time.strftime('%Y-%m-%d'), 'id': article.id}})
+            return jsonify(
+                {'article': {'title': article.title, 'content': article.content,
+                             'category': article.category.name if article.category else '',
+                             'date': article.create_time.strftime('%Y-%m-%d'), 'id': article.id}})
 
     elif request.method == 'PUT':
-        id = request.json['data']['id']
+        id = request.json['id']
         if id:
             article = Article.query.get(id)
-            article.title = request.json['data']['title']
-            article.content = request.json['data']['content']
+            # article.title = request.json['data']['title']
+            article.content = request.json['data']
             article.update_time = datetime.now()
             db.session.add(article)
             db.session.commit()
@@ -70,21 +72,55 @@ def get_categories():
     return jsonify({"category_json": category_json})
 
 
-#
-# from extand import db
-#
-#
-# @m.route('/do_test')
-# def add_items():
-#     for i in range(100):
-#         article = Article()
-#         article.title = 'for flask test ' + str(i)
-#         article.content = "东西不错，就是拿回来的时候吓了我一跳，我买的法拉利混光版的，然后给了我一个伯爵红的，我还以为没" \
-#                           "背光，后来试了一下原来是有背光的，买的樱桃红轴，手感很不错，不像黑轴按着那么累，可以好好的玩游戏了" \
-#                           "，卖家人很好，发消息都是秒回。唯一不爽的一点就是顺丰太慢了一个键盘发了3天，和普通快递差不多！总之东西非常不错，下次还会再来。"
-#         db.session.add(article)
-#         db.session.commit()
-#     return 'success'
+@m.route('/manage')
+def manage():
+    categories = [{'name': category.name, 'id': category.id, 'date': category.create_time.strftime('%Y-%m-%d')} for
+                  category in Category.query.all()]
+    articles = [
+        {'id': article.id, 'title': article.title, 'category': article.category.name if article.category else '',
+         'date': article.create_time.strftime('%Y-%m-%d')} for article in Article.query.all()]
+    return jsonify({'manage': {'categories': categories, 'articles': articles}})
+
+
+@m.route('/article_titles')
+def get_article_titles():
+    articles = [{'id': article.id, 'title': article.title} for article in Article.query.all()]
+    return jsonify({'articles': articles})
+
+
+@m.route('/category_titles')
+def get_category_titles():
+    categories = [{'id': category.id, 'name': category.name} for category in Category.query.all()]
+    return jsonify({'categories': categories})
+
+
+@m.route('/tag_titles')
+def get_tag_titles():
+    tags = [{'id': tag.id, 'name': tag.name} for tag in Tag.query.all()]
+    return jsonify({'tags': tags})
+
+
+@m.route('/new_article')
+def new_article():
+    pass
+
+
+@m.route('/new_tag')
+def new_tag():
+    pass
+
+
+@m.route('/do_test')
+def add_items():
+    for i in range(100):
+        article = Article()
+        article.title = 'for flask test ' + str(i)
+        article.content = "东西不错，就是拿回来的时候吓了我一跳，我买的法拉利混光版的，然后给了我一个伯爵红的，我还以为没" \
+                          "背光，后来试了一下原来是有背光的，买的樱桃红轴，手感很不错，不像黑轴按着那么累，可以好好的玩游戏了" \
+                          "，卖家人很好，发消息都是秒回。唯一不爽的一点就是顺丰太慢了一个键盘发了3天，和普通快递差不多！总之东西非常不错，下次还会再来。"
+        db.session.add(article)
+        db.session.commit()
+    return 'success'
 
 
 @m.route('/do_add_categories')

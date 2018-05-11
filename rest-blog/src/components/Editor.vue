@@ -1,8 +1,35 @@
 <template>
   <div>
-    <div>this is title name</div>
-    <div>this a tag select box</div>
-    <div>this is category</div>
+    <table class="form-group">
+      <tr>
+        <th>Title:</th>
+        <th><input type="text" class="form-control" v-model="article.title"></th>
+      </tr>
+      <br>
+      <tr>
+        <th>Category:</th>
+        <th><input type="text" class="form-control" v-model="article.category"></th>
+      </tr>
+      <br>
+      <tr>
+        <th>Tags:</th>
+        <th>
+          <select class="form-control" multiple="multiple" >
+            <option selected>Open this select menu</option>
+            <option selected>One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+            <option value="4">WoCao</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+            <option value="4">Flask</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+            <option value="4">None</option>
+          </select>
+        </th>
+      </tr>
+    </table>
     <br>
     <div>
       <mavon-editor v-model="article.content" :toolbars="toolbars" @save="$save"></mavon-editor>
@@ -12,6 +39,7 @@
 </template>
 
 <script>
+  import showdown from 'showdown'
 
   export default {
     name: "Editor",
@@ -24,6 +52,7 @@
     data() {
       return {
         article: '',
+        content: '',
         toolbars: {
           bold: true, // 粗体
           italic: true, // 斜体
@@ -53,12 +82,15 @@
     mounted() {
       this.$axios.get('http://127.0.0.1:5000/api/article', {params: {title: this.$route.params.name}})
         .then(response => {
-          this.article = response.data.article
+          this.article = response.data.article;
+          let converter = new showdown.Converter()
+          this.content = converter.makeHtml(response.data.article.content)
+
         })
     },
     methods: {
-      $save(content, render){
-        this.$axios.put('http://127.0.0.1:5000/api/article', {data: this.article})
+      $save(content, render) {
+        this.$axios.put('http://127.0.0.1:5000/api/article', {data: content, id: this.article.id})
 
       }
     }

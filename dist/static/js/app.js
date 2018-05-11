@@ -4,7 +4,7 @@ var header_nav = Vue.component('header-nav', {
     '        <li><a href="" class="no-botterm"><img src="/static/icons/home.svg" alt="">Home</a></li>\n' +
     '        <li><a href="" class="no-botterm"><img src="/static/icons/archive.svg" alt="">Axis</a></li>\n' +
     '        <li><a href="" class="no-botterm"><img src="/static/icons/tags.svg" alt="">Tags</a></li>\n' +
-    '        <li><a href="" class="no-botterm"><img src="/static/icons/about.svg" alt="">About</a></li>\n' +
+    '        <li><a href="" class="no-botterm"><img src="/static/icons/manager.svg" alt="">About</a></li>\n' +
     '        <li><a href="" class="no-botterm"><img src="/static/icons/github.svg" alt="">Github</a></li>\n' +
     '\n' +
     '    </ul>\n' +
