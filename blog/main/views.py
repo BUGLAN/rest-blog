@@ -100,14 +100,46 @@ def get_tag_titles():
     return jsonify({'tags': tags})
 
 
-@m.route('/new_article')
-def new_article():
-    pass
+@m.route('/new_category', methods=['POST'])
+def new_category():
+    category = request.json.get('category')
+    article_ids = request.json.get('articles')
+    articles = [Article.query.get(int(id)) for id in article_ids]
+    c = Category()
+    c.name = category
+    c.articles = articles
+    db.session.add(c)
+    db.session.commit()
+    return jsonify({'status': 200})
 
 
-@m.route('/new_tag')
+@m.route('/new_tag', methods=['POST'])
 def new_tag():
-    pass
+    tag = request.json.get('tag')
+    article_ids = request.json.get('articles')
+    articles = [Article.query.get(int(id)) for id in article_ids]
+    t = Tag()
+    t.name = tag
+    t.articles = articles
+    db.session.add(t)
+    db.session.commit()
+    return jsonify({'status': 200})
+
+
+@m.route('/new_article', methods=['POST'])
+def new_article():
+    title = request.json.get('title')
+    category_id = request.json.get('category')
+    tag_ids = request.json.get('tags')
+    content = request.json.get('content')
+    article = Article()
+    article.title = title
+    article.category = Category.query.get(int(category_id)) if Category.query.get(int(category_id)) else None
+    article.tags = [Tag.query.get(int(id)) for id in tag_ids]
+    article.content = content
+    db.session.add(article)
+    db.session.commit()
+    return jsonify({'status': 200})
 
 
 @m.route('/do_test')

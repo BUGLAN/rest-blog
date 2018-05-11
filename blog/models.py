@@ -20,7 +20,7 @@ class User(db.Model):
 
 
 article_tag = db.Table(
-    'post_tag',
+    'article_tag',
     db.Column('id', db.Integer, primary_key=True),
     db.Column('article_id', db.Integer, db.ForeignKey('article.id')),
     db.Column('tag_id', db.Integer, db.ForeignKey('tag.id'))
@@ -77,3 +77,11 @@ class Tag(db.Model):
     name = db.Column(db.String(58), unique=True)
     create_time = db.Column(db.DateTime)
     update_time = db.Column(db.DateTime)
+
+    def __init__(self):
+        super(Tag, self).__init__()
+        self.create_time = datetime.now()
+        self.update_time = datetime.now()
+
+    def __repr__(self):
+        return '<Tag %r>' % self.name

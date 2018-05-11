@@ -11,7 +11,7 @@
         <tr>
           <th>标记为 {{tag}}</th>
           <th>
-            <select class="form-control" multiple="multiple" >
+            <select class="form-control" multiple="multiple" v-model="check_articles">
               <option :value="article.id" v-for="article in articles">{{article.title}}</option>
             </select>
           </th>
@@ -20,7 +20,7 @@
         <tr>
           <th>提交</th>
           <th>
-            <button class="btn btn-danger">submit</button>
+            <button class="btn btn-danger" @click="submit">submit</button>
           </th>
         </tr>
       </table>
@@ -38,7 +38,8 @@
     data(){
       return {
         tag: '',
-        articles: ''
+        articles: '',
+        check_articles: []
       }
     },
     mounted(){
@@ -47,7 +48,19 @@
           this.articles = response.data.articles
         })
     },
-    components: {NavHeader}
+    components: {NavHeader},
+    methods: {
+      submit: function () {
+        this.$axios.post('http://127.0.0.1:5000/api/new_tag', {'tag': this.tag, 'articles': this.check_articles})
+          .then(response => {
+            if (response.status === 200){
+              alert('新建标签成功')
+            }else{
+               alert('新建标签失败, 请重新尝试')
+            }
+          })
+      }
+    }
   }
 </script>
 

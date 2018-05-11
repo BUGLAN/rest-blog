@@ -22,7 +22,7 @@ module.exports = {
 
 
     /**
-     * Source Maps
+     * Source Maps`
      */
 
     // https://webpack.js.org/configuration/devtool/#development
@@ -49,7 +49,7 @@ module.exports = {
      * Source Maps
      */
 
-    productionSourceMap: true,
+    productionSourceMap: false,
     // https://webpack.js.org/configuration/devtool/#production
     devtool: '#source-map',
 

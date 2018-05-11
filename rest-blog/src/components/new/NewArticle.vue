@@ -5,13 +5,13 @@
       <table class="form-group">
         <tr>
           <th>Title:</th>
-          <th><input type="text" class="form-control"></th>
+          <th><input type="text" class="form-control" v-model="title"></th>
         </tr>
         <br>
         <tr>
           <th>Category:</th>
           <th>
-            <select class="form-control">
+            <select class="form-control" v-model="check_category">
               <option :value="category.id" v-for="category in categories">{{category.name}}</option>
             </select>
           </th>
@@ -20,7 +20,7 @@
         <tr>
           <th>Tags:</th>
           <th>
-            <select class="form-control" multiple="multiple">
+            <select class="form-control" multiple="multiple" v-model="check_tags">
               <option :value="tag.id" v-for="tag in tags">{{tag.name}}</option>
             </select>
           </th>
@@ -42,10 +42,12 @@
     name: "NewArticle",
     data() {
       return {
-        article: '',
         content: '',
         tags: '',
         categories: '',
+        check_category: [],
+        check_tags: [],
+        title: '',
         toolbars: {
           bold: true, // 粗体
           italic: true, // 斜体
@@ -85,7 +87,18 @@
     },
     methods: {
       $save(content, render) {
-        console.log('save success')
+        this.$axios.post('http://127.0.0.1:5000/api/new_article', {
+          'title': this.title,
+          'content': content,
+          'tags': this.check_tags,
+          'category': this.check_category
+        }).then(response => {
+          if (response.status === 200){
+            alert('新建文章成功')
+          }else{
+            alert('新建文章失败')
+          }
+        })
       }
     }
   }

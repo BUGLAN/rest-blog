@@ -11,7 +11,7 @@
         <tr>
           <th>标记 {{category}} </th>
           <th>
-            <select class="form-control" multiple="multiple" >
+            <select class="form-control" multiple="multiple" v-model="check_articles">
               <option :value="article.id" v-for="article in articles">{{article.title}}</option>
             </select>
           </th>
@@ -19,7 +19,7 @@
         <br>
         <tr>
           <th>提交</th>
-          <th><button class="btn btn-danger">submit</button></th>
+          <th><button class="btn btn-danger" @click="submit">submit</button></th>
         </tr>
       </table>
       <br>
@@ -35,7 +35,8 @@
       data(){
           return {
             category: '',
-            articles: ''
+            articles: '',
+            check_articles: []
           }
       },
       mounted(){
@@ -44,7 +45,17 @@
           this.articles = response.data.articles
         })
     },
-      components: {NavHeader}
+      components: {NavHeader},
+      methods: {
+          submit: function(){
+            this.$axios.post('http://127.0.0.1:5000/api/new_category', {'category': this.category, 'articles': this.check_articles})
+              .then(response => {
+                if (response.status === 200){
+                  alert('新建成功');
+                }
+              })
+          }
+      }
     }
 </script>
 
