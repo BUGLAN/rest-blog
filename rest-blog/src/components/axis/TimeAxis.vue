@@ -2,9 +2,9 @@
   <div>
     <div v-for="item in items">
       <h2>{{item.name}}</h2>
-      <ul v-for="title in item.titles">
+      <ol v-for="title in item.titles">
         <li>{{title.date}} => <router-link :to="{path: '/article/' + title['date'] + '/' + title['name']}">{{title.name}}</router-link></li>
-      </ul>
+      </ol>
     </div>
   </div>
 </template>

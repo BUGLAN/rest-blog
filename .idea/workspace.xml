@@ -2,16 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aba27d61-6078-420f-855f-09b456676eca" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/rest-blog/src/components/BasicManage.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rest-blog/src/components/editor/EditorArticle.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rest-blog/src/components/editor/EditorTag.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rest-blog/src/components/Login.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/main/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rest-blog/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/rest-blog/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rest-blog/src/components/Editor.vue" beforeDir="false" afterPath="$PROJECT_DIR$/rest-blog/src/components/Editor.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rest-blog/src/components/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/rest-blog/src/components/Home.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rest-blog/src/components/Manage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/rest-blog/src/components/Manage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rest-blog/src/components/editor/EditorCategory.vue" beforeDir="false" afterPath="$PROJECT_DIR$/rest-blog/src/components/editor/EditorCategory.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rest-blog/src/components/axis/TimeAxis.vue" beforeDir="false" afterPath="$PROJECT_DIR$/rest-blog/src/components/axis/TimeAxis.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rest-blog/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/rest-blog/src/router/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,18 +18,60 @@
     <SUITE FILE_PATH="coverage/rest_blog$Flask__blog_app_py_.coverage" NAME="Flask (blog/app.py) Coverage Results" MODIFIED="1525262315111" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/rest_blog$rest_blog.coverage" NAME="rest-blog Coverage Results" MODIFIED="1525265335930" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/rest_blog$ext__1_.coverage" NAME="ext (1) Coverage Results" MODIFIED="1525495438619" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/rest_blog$run.coverage" NAME="run Coverage Results" MODIFIED="1526108915083" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/rest_blog$run.coverage" NAME="run Coverage Results" MODIFIED="1526134640345" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/rest_blog$script.coverage" NAME="script Coverage Results" MODIFIED="1525620013530" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/rest_blog$Flask__blog___init___py_create_app_.coverage" NAME="Flask (blog/__init__.py:create_app) Coverage Results" MODIFIED="1525264054974" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/rest_blog$ext.coverage" NAME="ext Coverage Results" MODIFIED="1525495393284" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/blog" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="EditorTag.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EditorTag.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rest-blog/src/components/editor/EditorTag.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="35" column="89" selection-start-line="35" selection-start-column="89" selection-end-line="35" selection-end-column="89" />
+            <state relative-caret-position="147">
+              <caret line="7" column="12" lean-forward="true" selection-start-line="1" selection-start-column="4" selection-end-line="14" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TimeAxis.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rest-blog/src/components/axis/TimeAxis.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Login.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rest-blog/src/components/Login.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="12" column="35" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rest-blog/src/router/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="525">
+              <caret line="100" column="22" selection-start-line="100" selection-start-column="22" selection-end-line="100" selection-end-column="22" />
+              <folding>
+                <element signature="e#0#21#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Home.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rest-blog/src/components/Home.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="11" column="5" lean-forward="true" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="54" />
+              <folding>
+                <element signature="e#176#228#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -44,17 +79,17 @@
       <file leaf-file-name="EditorCategory.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rest-blog/src/components/editor/EditorCategory.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="40" column="18" lean-forward="true" selection-start-line="39" selection-start-column="8" selection-end-line="44" selection-end-column="12" />
+            <state relative-caret-position="840">
+              <caret line="40" column="18" selection-start-line="39" selection-start-column="8" selection-end-line="44" selection-end-column="12" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/blog/main/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="819">
-              <caret line="60" column="62" selection-start-line="60" selection-start-column="62" selection-end-line="60" selection-end-column="62" />
+            <state relative-caret-position="-104">
+              <caret line="221" column="39" lean-forward="true" selection-start-line="221" selection-start-column="39" selection-end-line="221" selection-end-column="39" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -65,7 +100,7 @@
       <file leaf-file-name="Manage.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rest-blog/src/components/Manage.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
+            <state relative-caret-position="2373">
               <caret line="113" column="14" selection-start-line="113" selection-start-column="14" selection-end-line="113" selection-end-column="14" />
             </state>
           </provider>
@@ -109,7 +144,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/rest-blog/src/components/SayHi.vue" />
         <option value="$PROJECT_DIR$/rest-blog/src/components/BlogList.vue" />
         <option value="$PROJECT_DIR$/rest-blog/src/components/nav-header.vue" />
         <option value="$PROJECT_DIR$/rest-blog/static/css.css" />
@@ -135,7 +169,6 @@
         <option value="$PROJECT_DIR$/rest-blog/src/components/Axis.vue" />
         <option value="$PROJECT_DIR$/script.py" />
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/rest-blog/src/components/axis/TimeAxis.vue" />
         <option value="$PROJECT_DIR$/rest-blog/index.html" />
         <option value="$PROJECT_DIR$/rest-blog/src/main.js" />
         <option value="$PROJECT_DIR$/rest-blog/static/css/main.css" />
@@ -154,12 +187,14 @@
         <option value="$PROJECT_DIR$/rest-blog/src/components/BasicManage.vue" />
         <option value="$PROJECT_DIR$/rest-blog/src/App.vue" />
         <option value="$PROJECT_DIR$/rest-blog/src/components/Home.vue" />
-        <option value="$PROJECT_DIR$/rest-blog/src/router/index.js" />
         <option value="$PROJECT_DIR$/rest-blog/src/components/Editor.vue" />
         <option value="$PROJECT_DIR$/rest-blog/src/components/editor/EditorCategory.vue" />
         <option value="$PROJECT_DIR$/rest-blog/src/components/editor/EditorTag.vue" />
         <option value="$PROJECT_DIR$/blog/main/views.py" />
         <option value="$PROJECT_DIR$/rest-blog/src/components/Manage.vue" />
+        <option value="$PROJECT_DIR$/rest-blog/src/components/axis/TimeAxis.vue" />
+        <option value="$PROJECT_DIR$/rest-blog/src/router/index.js" />
+        <option value="$PROJECT_DIR$/rest-blog/src/components/Login.vue" />
       </list>
     </option>
   </component>
@@ -178,8 +213,8 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="335" />
-    <option name="y" value="97" />
+    <option name="x" value="350" />
+    <option name="y" value="66" />
     <option name="width" value="1371" />
     <option name="height" value="897" />
   </component>
@@ -191,7 +226,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -250,6 +284,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -432,17 +467,17 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="350" y="66" width="1371" height="897" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.50159913" side_tool="true" weight="0.23336968" />
+      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.5021322" side_tool="true" weight="0.28135222" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32585752" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49840087" visible="true" weight="0.23336968" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4978678" weight="0.3403694" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49957877" weight="0.32606325" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49913943" visible="true" weight="0.18390192" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49913943" visible="true" weight="0.26697177" />
       <window_info anchor="bottom" id="Docker" order="7" weight="0.32946298" />
       <window_info anchor="right" id="Database" order="5" />
       <window_info anchor="right" id="SciView" order="4" weight="0.3296582" />
@@ -463,24 +498,24 @@
       <window_info anchor="bottom" id="Docker" order="7" weight="0.32946298" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Remote Host" order="3" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2611626" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.23350923" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32849604" />
-      <window_info anchor="bottom" id="Python Console" order="10" weight="0.32946298" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.28592163" />
       <window_info anchor="right" id="Database" order="5" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32946298" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="right" id="SciView" order="4" weight="0.3296582" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32849604" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.32946298" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -495,7 +530,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/rest-blog-front/config/index.js" />
     <entry file="file://$PROJECT_DIR$/rest-blog/build/check-versions.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-566" />
@@ -654,13 +688,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rest-blog/src/components/axis/TimeAxis.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="467">
-          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/blog/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="635">
@@ -703,30 +730,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rest-blog/src/components/Home.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-          <folding>
-            <element signature="e#141#193#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/rest-blog/src/components/BasicManage.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
           <caret line="4" column="10" lean-forward="true" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rest-blog/src/router/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1071">
-          <caret line="81" column="45" selection-start-line="81" selection-start-column="45" selection-end-line="81" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -760,32 +767,66 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/rest-blog/src/components/Manage.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
+        <state relative-caret-position="2373">
           <caret line="113" column="14" selection-start-line="113" selection-start-column="14" selection-end-line="113" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/blog/main/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="819">
-          <caret line="60" column="62" selection-start-line="60" selection-start-column="62" selection-end-line="60" selection-end-column="62" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rest-blog/src/components/editor/EditorCategory.vue">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="840">
+          <caret line="40" column="18" selection-start-line="39" selection-start-column="8" selection-end-line="44" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rest-blog/src/components/axis/TimeAxis.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rest-blog/src/components/Home.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="11" column="5" lean-forward="true" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="54" />
+          <folding>
+            <element signature="e#176#228#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rest-blog/src/router/index.js">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
-          <caret line="40" column="18" lean-forward="true" selection-start-line="39" selection-start-column="8" selection-end-line="44" selection-end-column="12" />
+          <caret line="100" column="22" selection-start-line="100" selection-start-column="22" selection-end-line="100" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rest-blog/src/components/editor/EditorTag.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="35" column="89" selection-start-line="35" selection-start-column="89" selection-end-line="35" selection-end-column="89" />
+        <state relative-caret-position="147">
+          <caret line="7" column="12" lean-forward="true" selection-start-line="1" selection-start-column="4" selection-end-line="14" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rest-blog/src/components/Login.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="12" column="35" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blog/main/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-104">
+          <caret line="221" column="39" lean-forward="true" selection-start-line="221" selection-start-column="39" selection-end-line="221" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -20,6 +20,7 @@ import NewTag from '@/components/new/NewTag'
 import EditorCategory from '@/components/editor/EditorCategory'
 import BasicManage from '@/components/BasicManage'
 import EditorTag from '@/components/editor/EditorTag'
+import Login from '@/components/Login'
 
 
 Vue.use(Router)
@@ -94,6 +95,10 @@ export default new Router({
     {
       path: '/new_tag',
       component: NewTag
+    },
+    {
+      path: '/login',
+      component: Login
     }
   ]
 })
