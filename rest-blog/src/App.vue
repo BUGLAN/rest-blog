@@ -1,7 +1,9 @@
 <template>
   <div>
     <router-view></router-view>
+    <keep-alive>
     <Footer></Footer>
+    </keep-alive>
   </div>
 </template>
 

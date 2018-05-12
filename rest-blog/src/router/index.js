@@ -17,6 +17,9 @@ import Manage from '@/components/Manage'
 import NewArticle from '@/components/new/NewArticle'
 import NewCategory from '@/components/new/NewCategory'
 import NewTag from '@/components/new/NewTag'
+import EditorCategory from '@/components/editor/EditorCategory'
+import BasicManage from '@/components/BasicManage'
+import EditorTag from '@/components/editor/EditorTag'
 
 
 Vue.use(Router)
@@ -60,7 +63,25 @@ export default new Router({
     },
     {
       path: '/manage',
-      component: Manage,
+      component: BasicManage,
+      children: [
+        {
+          path: '',
+          component: Manage
+        },
+        {
+          path: 'category/:name/editor',
+          component: EditorCategory
+        },
+        {
+          path: 'tag/:name/editor',
+          component: EditorTag
+        },
+        {
+          path: 'test',
+          component: {template: '<p>test</p>'}
+        }
+      ]
     },
     {
       path: '/new_article',

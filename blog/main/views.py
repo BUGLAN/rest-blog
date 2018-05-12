@@ -24,8 +24,8 @@ def get_articles():
     return jsonify({'articles': articles})
 
 
-@m.route('/article', methods=['GET', 'PUT'])
-def get_article():
+@m.route('/article', methods=['GET', 'PUT', 'DELETE'])
+def article_operation():
     if request.method == 'GET':
         title = request.args.get('title')
         if title:
@@ -43,6 +43,7 @@ def get_article():
         id = request.json['id']
         if id:
             article = Article.query.get(id)
+            article.title = request.json.get('title')
             article.content = request.json['content']
             article.category = Category.query.get_or_404(request.json.get('category'))
             article.tags = [Tag.query.get(tag_id) for tag_id in request.json.get('tags')]
@@ -52,8 +53,12 @@ def get_article():
             return jsonify({'msg': 'success', 'status_code': 200})
         else:
             return jsonify({{'msg': 'not found', 'status_code': 404}})
-    else:
-        return jsonify({'article': 'error'})
+    elif request.method == 'DELETE':
+        id = request.args.get('id')
+        article = Article.query.get(id)
+        db.session.delete(article)
+        db.session.commit()
+        return jsonify({'msg': 'success', 'status_code': 200})
 
 
 @m.route('/pages')
@@ -162,6 +167,59 @@ def upload_image():
         return jsonify({'url': 'http://127.0.0.1:5000/' + 'static/' + 'images/' + file.filename, 'status': 200})
     else:
         return jsonify({'status': 400})
+
+
+@m.route('/category_operation', methods=['GET', 'DELETE', 'PUT'])
+def category_operation():
+    if request.method == 'GET':
+        name = request.args.get('name')
+        category = Category.query.filter_by(name=name).first()
+        if category:
+            return jsonify({'category': {'id': category.id, 'name': category.name}})
+        else:
+            return jsonify({'status': 404})
+    elif request.method == 'DELETE':
+        id = request.args.get('id')
+        category = Category.query.get(id)
+        db.session.delete(category)
+        db.session.commit()
+        return jsonify({'status': 200})
+
+    elif request.method == 'PUT':
+        name = request.json.get('name')
+        id = request.json.get('id')
+        category = Category.query.get(id)
+        category.name = name
+        db.session.add(category)
+        db.session.commit()
+        return jsonify({'status': 200})
+
+
+@m.route('/tag_operation', methods=['GET', 'PUT', 'DELETE'])
+def tag_operation():
+    if request.method == 'GET':
+        name = request.args.get('name')
+        tag = Tag.query.filter_by(name=name).first()
+        if tag:
+            return jsonify({'tag': {'id': tag.id, 'name': tag.name}})
+        else:
+            return jsonify({'status': 404})
+
+    elif request.method == 'PUT':
+        name = request.json.get('name')
+        id = request.json.get('id')
+        tag = Tag.query.get(id)
+        tag.name = name
+        db.session.add(tag)
+        db.session.commit()
+        return jsonify({'status': 200})
+
+    elif request.method == 'DELETE':
+        id = request.args.get('id')
+        tag = Tag.query.get(id)
+        db.session.delete(tag)
+        db.session.commit()
+        return jsonify({'status': 200})
 
 
 @m.route('/do_test')

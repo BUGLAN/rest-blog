@@ -1,42 +1,51 @@
 <template>
-    <div>
-    <NavHeader></NavHeader>
-    <div>
-      <table class="form-group">
-        <tr>
-          <th>Category:</th>
-          <th><input type="text" class="form-control" ></th>
-        </tr>
-        <br>
-        <tr>
-          <th>标记  </th>
-          <th>
-            <select class="form-control" multiple="multiple" >
-              <option value="1" >dasdas</option>
-              <option value="1" >dasdas</option>
-              <option value="1" >dasdas</option>
-              <option value="1" >dasdas</option>
-              <option value="1" >dasdas</option>
-              <option value="1" >dasdas</option>
-            </select>
-          </th>
-        </tr>
-        <br>
-        <tr>
-          <th>提交</th>
-          <th><button class="btn btn-danger" >submit</button></th>
-        </tr>
-      </table>
+  <div>
+    <table class="form-group">
+      <tr>
+        <th>Category:</th>
+        <th><input type="text" class="form-control" v-model="name"></th>
+      </tr>
       <br>
+      <br>
+      <tr>
+        <th>提交</th>
+        <th>
+          <button class="btn btn-danger" @click="submit">submit</button>
+        </th>
+      </tr>
+    </table>
+    <br>
 
-    </div>
   </div>
 </template>
 
 <script>
-    export default {
-        name: "EditorCategory"
-    }
+  export default {
+    name: "EditorCategory",
+    data() {
+      return {
+        name: '',
+        category_id: '',
+      }
+    },
+    mounted() {
+      this.name = this.$route.params.name;
+      this.$axios.get('http://127.0.0.1:5000/api/category_operation', {params: {'name': this.name}})
+        .then(response => {
+          this.category_id = response.data.category.id;
+        })
+    },
+    methods: {
+      submit: function () {
+        this.$axios.put('http://127.0.0.1:5000/api/category_operation', {'id': this.category_id, 'name': this.name})
+          .then(response => {
+            if (response.status === 200) {
+              alert('修改成功')
+            }
+          })
+      }
+    },
+  }
 </script>
 
 <style scoped>

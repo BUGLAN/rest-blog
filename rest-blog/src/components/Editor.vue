@@ -106,6 +106,7 @@
     methods: {
       $save(content, render) {
         this.$axios.put('http://127.0.0.1:5000/api/article', {
+          title: this.article.title,
           content: content,
           id: this.article.id,
           category: this.check_category,
