@@ -1,7 +1,10 @@
-from blog.main import m
-from flask import jsonify, request, current_app
-from blog.models import Article, Category, Tag
+import os
 from datetime import datetime
+
+from flask import jsonify, request, current_app, url_for
+
+from blog.main import m
+from blog.models import Article, Category, Tag
 from extand import db
 
 
@@ -29,15 +32,20 @@ def get_article():
             article = Article.query.filter_by(title=title).first()
             return jsonify(
                 {'article': {'title': article.title, 'content': article.content,
-                             'category': article.category.name if article.category else '',
-                             'date': article.create_time.strftime('%Y-%m-%d'), 'id': article.id}})
+                             'date': article.create_time.strftime('%Y-%m-%d'), 'id': article.id,
+                             'category': {'id': article.category.id,
+                                          'name': article.category.name} if article.category else '',
+                             'tags': {'id': [tag.id for tag in article.tags],
+                                      'name': [tag.name for tag in article.tags]}
+                             }})
 
     elif request.method == 'PUT':
         id = request.json['id']
         if id:
             article = Article.query.get(id)
-            # article.title = request.json['data']['title']
-            article.content = request.json['data']
+            article.content = request.json['content']
+            article.category = Category.query.get_or_404(request.json.get('category'))
+            article.tags = [Tag.query.get(tag_id) for tag_id in request.json.get('tags')]
             article.update_time = datetime.now()
             db.session.add(article)
             db.session.commit()
@@ -68,7 +76,7 @@ def get_categories():
     category_json = [
         {'name': category.name,
          'titles': [{"name": article.title, 'date': article.create_time.strftime('%Y-%m-%d')}
-                    for article in category.article]} for category in Category.query.all()]
+                    for article in category.articles]} for category in Category.query.all()]
     return jsonify({"category_json": category_json})
 
 
@@ -78,8 +86,10 @@ def manage():
                   category in Category.query.all()]
     articles = [
         {'id': article.id, 'title': article.title, 'category': article.category.name if article.category else '',
+         'tags': [tag.name for tag in article.tags] if article.tags else [],
          'date': article.create_time.strftime('%Y-%m-%d')} for article in Article.query.all()]
-    return jsonify({'manage': {'categories': categories, 'articles': articles}})
+    tags = [{'id': tag.id, 'name': tag.name, 'date': tag.create_time.strftime('%Y-%m-%d')} for tag in Tag.query.all()]
+    return jsonify({'manage': {'categories': categories, 'articles': articles, 'tags': tags}})
 
 
 @m.route('/article_titles')
@@ -140,6 +150,18 @@ def new_article():
     db.session.add(article)
     db.session.commit()
     return jsonify({'status': 200})
+
+
+@m.route('/upload_image', methods=['POST'])
+def upload_image():
+    file = request.files.get('image')
+    if file and file.filename:
+        if not os.path.exists(current_app.config['UPLOAD_FOLDER']):
+            os.makedirs(current_app.config['UPLOAD_FOLDER'])
+        file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], file.filename))
+        return jsonify({'url': 'http://127.0.0.1:5000/' + 'static/' + 'images/' + file.filename, 'status': 200})
+    else:
+        return jsonify({'status': 400})
 
 
 @m.route('/do_test')

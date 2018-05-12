@@ -9,7 +9,7 @@
         </tr>
         <br>
         <tr>
-          <th>标记 {{category}} </th>
+          <th>标记 } </th>
           <th>
             <select class="form-control" multiple="multiple" v-model="check_articles">
               <option :value="article.id" v-for="article in articles">{{article.title}}</option>
