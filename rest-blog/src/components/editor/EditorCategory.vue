@@ -30,14 +30,14 @@
     },
     mounted() {
       this.name = this.$route.params.name;
-      this.$axios.get('http://127.0.0.1:5000/api/category_operation', {params: {'name': this.name}})
+      this.$axios.get('http://127.0.0.1:5000/api/category_operation', {params: {'name': this.name}}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
         .then(response => {
           this.category_id = response.data.category.id;
         })
     },
     methods: {
       submit: function () {
-        this.$axios.put('http://127.0.0.1:5000/api/category_operation', {'id': this.category_id, 'name': this.name})
+        this.$axios.put('http://127.0.0.1:5000/api/category_operation', {'id': this.category_id, 'name': this.name}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
           .then(response => {
             if (response.status === 200) {
               alert('修改成功')

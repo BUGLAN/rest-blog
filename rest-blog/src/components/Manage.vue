@@ -100,14 +100,14 @@
       }
     },
     mounted() {
-      this.$axios.get('http://127.0.0.1:5000/api/manage')
+      this.$axios.get('http://127.0.0.1:5000/api/manage', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
         .then(response => {
           this.manage = response.data.manage;
         })
     },
     methods: {
       article_delete: function (id) {
-        this.$axios.delete('http://127.0.0.1:5000/api/article', {params: {'id': id}})
+        this.$axios.delete('http://127.0.0.1:5000/api/article_operation', {params: {'id': id}}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
           .then(response => {
             if (response.status === 200) {
               alert('删除成功')
@@ -116,7 +116,7 @@
           })
       },
       category_delete: function (id) {
-        this.$axios.delete('http://127.0.0.1:5000/api/category_operation', {params: {'id': id}})
+        this.$axios.delete('http://127.0.0.1:5000/api/category_operation', {params: {'id': id}}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
           .then(response => {
             if (response.status === 200) {
               alert('删除成功')
@@ -125,7 +125,7 @@
           })
       },
       tag_delete: function (id) {
-        this.$axios.delete('http://127.0.0.1:5000/api/tag_operation', {params: {'id': id}})
+        this.$axios.delete('http://127.0.0.1:5000/api/tag_operation', {params: {'id': id}}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
           .then(response => {
             if (response.status === 200) {
               alert('删除成功')

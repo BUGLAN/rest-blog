@@ -43,7 +43,7 @@
       }
     },
     mounted(){
-      this.$axios.get('http://127.0.0.1:5000/api/article_titles')
+      this.$axios.get('http://127.0.0.1:5000/api/article_titles', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
         .then(response => {
           this.articles = response.data.articles
         })
@@ -51,7 +51,7 @@
     components: {NavHeader},
     methods: {
       submit: function () {
-        this.$axios.post('http://127.0.0.1:5000/api/new_tag', {'tag': this.tag, 'articles': this.check_articles})
+        this.$axios.post('http://127.0.0.1:5000/api/new_tag', {'tag': this.tag, 'articles': this.check_articles}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
           .then(response => {
             if (response.status === 200){
               alert('新建标签成功')

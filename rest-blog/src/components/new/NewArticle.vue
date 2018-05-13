@@ -76,11 +76,11 @@
     },
     components: {NavHeader},
     mounted() {
-      this.$axios.get('http://127.0.0.1:5000/api/category_titles')
+      this.$axios.get('http://127.0.0.1:5000/api/category_titles', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
         .then(response => {
           this.categories = response.data.categories
         });
-      this.$axios.get('http://127.0.0.1:5000/api/tag_titles')
+      this.$axios.get('http://127.0.0.1:5000/api/tag_titles', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
         .then(response => {
           this.tags = response.data.tags
         })
@@ -92,7 +92,7 @@
           'content': content,
           'tags': this.check_tags,
           'category': this.check_category
-        }).then(response => {
+        }, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}}).then(response => {
           if (response.status === 200){
             alert('新建文章成功')
           }else{

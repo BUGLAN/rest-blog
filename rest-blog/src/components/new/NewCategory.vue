@@ -9,7 +9,7 @@
         </tr>
         <br>
         <tr>
-          <th>标记 } </th>
+          <th>标记 </th>
           <th>
             <select class="form-control" multiple="multiple" v-model="check_articles">
               <option :value="article.id" v-for="article in articles">{{article.title}}</option>
@@ -40,7 +40,7 @@
           }
       },
       mounted(){
-      this.$axios.get('http://127.0.0.1:5000/api/article_titles')
+      this.$axios.get('http://127.0.0.1:5000/api/article_titles', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
         .then(response => {
           this.articles = response.data.articles
         })
@@ -48,7 +48,7 @@
       components: {NavHeader},
       methods: {
           submit: function(){
-            this.$axios.post('http://127.0.0.1:5000/api/new_category', {'category': this.category, 'articles': this.check_articles})
+            this.$axios.post('http://127.0.0.1:5000/api/new_category', {'category': this.category, 'articles': this.check_articles}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
               .then(response => {
                 if (response.status === 200){
                   alert('新建成功');

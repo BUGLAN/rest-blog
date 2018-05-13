@@ -10,9 +10,9 @@
         <th>Category:</th>
         <th>
           <select class="form-control" v-model="check_category">
-            <option value=""></option>
+            <option value="0"></option>
             <template v-for="category in categories">
-              <option  :value="category.id">{{category.name}}</option>
+              <option :value="category.id">{{category.name}}</option>
             </template>
           </select>
         </th>
@@ -88,30 +88,30 @@
       this.$axios.get('http://127.0.0.1:5000/api/article', {params: {title: this.$route.params.name}})
         .then(response => {
           this.article = response.data.article;
-         this.check_category = this.article.category.id;
+          this.check_category = this.article.category.id;
           this.check_tags = this.article.tags.id;
 
           // let converter = new showdown.Converter()
           // this.content = converter.makeHtml(response.data.article.content)
         });
-      this.$axios.get('http://127.0.0.1:5000/api/tag_titles')
+      this.$axios.get('http://127.0.0.1:5000/api/tag_titles', {headers: {'Authorization': 'Bearer ' + this.getCookie('token')}})
         .then(response => {
           this.tags = response.data.tags
         });
-      this.$axios.get('http://127.0.0.1:5000/api/category_titles')
+      this.$axios.get('http://127.0.0.1:5000/api/category_titles', {headers: {'Authorization': 'Bearer ' + this.getCookie('token')}})
         .then(response => {
           this.categories = response.data.categories
         });
     },
     methods: {
       $save(content, render) {
-        this.$axios.put('http://127.0.0.1:5000/api/article', {
+        this.$axios.put('http://127.0.0.1:5000/api/article_operation', {
           title: this.article.title,
           content: content,
           id: this.article.id,
           category: this.check_category,
           tags: this.check_tags
-        })
+        }, {headers: {'Authorization': 'Bearer ' + this.getCookie('token')}})
           .then(response => {
             if (response.status === 200) {
               alert('保存成功')
@@ -129,7 +129,7 @@
           url: 'http://127.0.0.1:5000/api/upload_image',
           method: 'post',
           data: formdata,
-          headers: {'Content-Type': 'multipart/form-data'},
+          headers: {'Content-Type': 'multipart/form-data', 'Authorization': 'Bearer ' + this.getCookie('token')},
         }).then(response => {
           // 第二步.将返回的url替换到文本原位置![...](./0) -> ![...](url)
           if (response.status === 200) {

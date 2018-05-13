@@ -1,5 +1,7 @@
 from extand import db
 from datetime import datetime
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer, SignatureExpired, BadSignature
+from flask import current_app
 
 
 class User(db.Model):
@@ -7,6 +9,7 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), unique=True)
+    password = db.Column(db.String(55))
     create_time = db.Column(db.DateTime)
     update_time = db.Column(db.DateTime)
 
@@ -17,6 +20,22 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.name
+
+    def generate_auth_token(self, expiration=60 * 60 * 24 * 7):
+        s = Serializer(current_app.config['SECRET_KEY'], expires_in=expiration)
+        return s.dumps({'id': self.id})
+
+    @staticmethod
+    def verify_auth_token(token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token)
+        except SignatureExpired:
+            return None
+        except BadSignature:
+            return None
+        user = User.query.get(data['id'])
+        return user
 
 
 article_tag = db.Table(
