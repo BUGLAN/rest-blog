@@ -51,6 +51,7 @@ class Article(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(128), unique=True)
+    slug = db.Column(db.String(128), unique=True)
     content = db.Column(db.Text)
     create_time = db.Column(db.DateTime)
     update_time = db.Column(db.DateTime)

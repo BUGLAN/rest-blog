@@ -33,6 +33,7 @@
       this.$axios.get('http://127.0.0.1:5000/api/category_operation', {params: {'name': this.name}}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
         .then(response => {
           this.category_id = response.data.category.id;
+          document.title = '编辑 ' + this.name + ' | BUGLAN';
         })
     },
     methods: {

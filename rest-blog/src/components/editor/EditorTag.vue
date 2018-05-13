@@ -29,6 +29,7 @@
           this.$axios.get('http://127.0.0.1:5000/api/tag_operation', {params: {'name': this.name}}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
         .then(response => {
           this.tag_id = response.data.tag.id;
+          document.title = '编辑 ' + this.name + ' | BUGLAN';
         })
       },
       methods: {

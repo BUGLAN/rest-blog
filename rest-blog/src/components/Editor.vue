@@ -7,6 +7,11 @@
       </tr>
       <br>
       <tr>
+        <th>Slug:</th>
+        <th><input type="text" class="form-control" v-model="article.slug"></th>
+      </tr>
+      <br>
+      <tr>
         <th>Category:</th>
         <th>
           <select class="form-control" v-model="check_category">
@@ -85,11 +90,12 @@
       }
     },
     mounted() {
-      this.$axios.get('http://127.0.0.1:5000/api/article', {params: {title: this.$route.params.name}})
+      this.$axios.get('http://127.0.0.1:5000/api/article', {params: {slug: this.$route.params.name}})
         .then(response => {
           this.article = response.data.article;
           this.check_category = this.article.category.id;
           this.check_tags = this.article.tags.id;
+          document.title = '编辑 ' + this.article.title + ' | BUGLAN';
 
           // let converter = new showdown.Converter()
           // this.content = converter.makeHtml(response.data.article.content)
@@ -108,6 +114,7 @@
         this.$axios.put('http://127.0.0.1:5000/api/article_operation', {
           title: this.article.title,
           content: content,
+          slug: this.article.slug,
           id: this.article.id,
           category: this.check_category,
           tags: this.check_tags

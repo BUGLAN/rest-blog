@@ -28,7 +28,7 @@
         </td>
         <td>{{article.date}}</td>
         <td>
-          <router-link :to="{path: '/article/' + article.date + '/' + article.title + '/editor'}">edit</router-link>
+          <router-link :to="{path: '/article/' + article.date + '/' + article.slug + '/editor'}">edit</router-link>
           <a href="" @click="article_delete(article.id)">delete</a>
         </td>
       </tr>
@@ -103,6 +103,7 @@
       this.$axios.get('http://127.0.0.1:5000/api/manage', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
         .then(response => {
           this.manage = response.data.manage;
+          document.title = 'Manage | BUGLAN';
         })
     },
     methods: {

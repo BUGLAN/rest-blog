@@ -9,9 +9,15 @@
         </tr>
         <br>
         <tr>
+          <th>Slug:</th>
+          <th><input type="text" class="form-control" v-model="slug"></th>
+        </tr>
+        <br>
+        <tr>
           <th>Category:</th>
           <th>
             <select class="form-control" v-model="check_category">
+              <option :value="0" ></option>
               <option :value="category.id" v-for="category in categories">{{category.name}}</option>
             </select>
           </th>
@@ -43,6 +49,7 @@
     data() {
       return {
         content: '',
+        slug: '',
         tags: '',
         categories: '',
         check_category: [],
@@ -90,6 +97,7 @@
         this.$axios.post('http://127.0.0.1:5000/api/new_article', {
           'title': this.title,
           'content': content,
+          'slug': this.slug,
           'tags': this.check_tags,
           'category': this.check_category
         }, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}}).then(response => {

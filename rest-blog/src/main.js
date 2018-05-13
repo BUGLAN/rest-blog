@@ -9,8 +9,16 @@ import 'highlight.js/styles/github.css'
 
 import Home from '@/components/Home'
 
+import {setMetaTitle} from "./util/setMetaTitle";
+
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
+
+Vue.directive('title', {
+  inserted: function (el, binding) {
+    setMetaTitle(binding.value)
+  }
+})
 
 //     something start
 
@@ -47,6 +55,25 @@ Vue.directive('highlight', function (el) {
     hljs.highlightBlock(block)
   })
 })
+
+// axios 拦截器
+axios.interceptors.response.use(
+    response => {
+        return response;
+    },
+    error => {
+        if (error.response) {
+            if (error.response.status == 401) {
+                    // store.commit(types.LOGOUT);
+                    router.replace({
+                        path: '/login',
+                        query: {redirect: router.currentRoute.fullPath}
+                    })
+            }
+        }
+        return Promise.reject(error.response.data)   // 返回接口返回的错误信息
+    }
+);
 
 
 new Vue({

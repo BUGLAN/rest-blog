@@ -40,6 +40,10 @@ export default new Router({
       ]
     },
     {
+      path: '*',
+      redirect: '/'
+    },
+    {
       path: '/article',
       component: Detail,
       children: [

@@ -11,7 +11,7 @@
 
   export default {
     name: "Detail",
-    components: {NavHeader}
+    components: {NavHeader},
   }
 </script>
 
