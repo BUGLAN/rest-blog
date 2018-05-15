@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="aba27d61-6078-420f-855f-09b456676eca" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/main/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="aba27d61-6078-420f-855f-09b456676eca" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -141,7 +138,7 @@
       <path value="$PROJECT_DIR$/rest-blog/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="300" />
     <option name="y" value="26" />
     <option name="width" value="1371" />
@@ -161,46 +158,6 @@
             <path>
               <item name="rest-blog" type="b2602c69:ProjectViewProjectNode" />
               <item name="rest-blog" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="rest-blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="rest-blog" type="462c0819:PsiDirectoryNode" />
-              <item name="blog" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="rest-blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="rest-blog" type="462c0819:PsiDirectoryNode" />
-              <item name="blog" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="rest-blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="rest-blog" type="462c0819:PsiDirectoryNode" />
-              <item name="dist" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="rest-blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="rest-blog" type="462c0819:PsiDirectoryNode" />
-              <item name="rest-blog" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="rest-blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="rest-blog" type="462c0819:PsiDirectoryNode" />
-              <item name="rest-blog" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="rest-blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="rest-blog" type="462c0819:PsiDirectoryNode" />
-              <item name="rest-blog" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="rest-blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="rest-blog" type="462c0819:PsiDirectoryNode" />
-              <item name="rest-blog" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -400,17 +357,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="300" y="26" width="1371" height="899" extended-state="1" />
-    <editor active="true" />
+    <frame x="300" y="26" width="1371" height="899" extended-state="0" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32894737" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.5026697" side_tool="true" weight="0.33508542" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32585752" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49733028" visible="true" weight="0.40131578" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49957877" weight="0.2693566" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49913943" visible="true" weight="0.266209" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49733028" weight="0.40131578" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49957877" visible="true" weight="0.26842105" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49913943" visible="true" weight="0.266209" />
       <window_info anchor="bottom" id="Docker" order="7" weight="0.32946298" />
       <window_info anchor="right" id="Database" order="5" />
       <window_info anchor="right" id="SciView" order="4" weight="0.3296582" />
