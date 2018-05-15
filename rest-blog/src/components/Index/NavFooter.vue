@@ -15,7 +15,7 @@
       }
     },
     mounted() {
-      this.$axios.get('http://127.0.0.1:5000/api/pages')
+      this.$axios.get('http://buglan.org/api/pages')
         .then(response => {
           this.pages = response.data['pages']
         })

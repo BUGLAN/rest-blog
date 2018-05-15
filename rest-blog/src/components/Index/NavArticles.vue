@@ -24,17 +24,16 @@
       }
     },
     mounted() {
-      this.$axios.get('http://127.0.0.1:5000/api/articles', {params: {page: this.$route.query.page}})
+      this.$axios.get('http://buglan.org/api/articles', {params: {page: this.$route.query.page}})
         .then(response => {
           this.items = response.data['articles'];
-          console.log(this.items)
         }).catch(response => {
-        console.log(response.status)
+        alert("出现错误请联系管理员")
       })
     },
     watch: {
       '$route'(to, from) {
-        this.$axios.get('http://127.0.0.1:5000/api/articles', {params: {page: this.$route.query.page}})
+        this.$axios.get('http://buglan.org/api/articles', {params: {page: this.$route.query.page}})
           .then(response => {
             this.items = response.data['articles'];
           })

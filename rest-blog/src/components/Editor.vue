@@ -90,7 +90,7 @@
       }
     },
     mounted() {
-      this.$axios.get('http://127.0.0.1:5000/api/article', {params: {slug: this.$route.params.name}})
+      this.$axios.get('http://buglan.org/api/article', {params: {slug: this.$route.params.name}})
         .then(response => {
           this.article = response.data.article;
           this.check_category = this.article.category.id;
@@ -100,18 +100,18 @@
           // let converter = new showdown.Converter()
           // this.content = converter.makeHtml(response.data.article.content)
         });
-      this.$axios.get('http://127.0.0.1:5000/api/tag_titles', {headers: {'Authorization': 'Bearer ' + this.getCookie('token')}})
+      this.$axios.get('http://buglan.org/api/tag_titles', {headers: {'Authorization': 'Bearer ' + this.getCookie('token')}})
         .then(response => {
           this.tags = response.data.tags
         });
-      this.$axios.get('http://127.0.0.1:5000/api/category_titles', {headers: {'Authorization': 'Bearer ' + this.getCookie('token')}})
+      this.$axios.get('http://buglan.org/api/category_titles', {headers: {'Authorization': 'Bearer ' + this.getCookie('token')}})
         .then(response => {
           this.categories = response.data.categories
         });
     },
     methods: {
       $save(content, render) {
-        this.$axios.put('http://127.0.0.1:5000/api/article_operation', {
+        this.$axios.put('http://buglan.org/api/article_operation', {
           title: this.article.title,
           content: content,
           slug: this.article.slug,
@@ -133,7 +133,7 @@
         let formdata = new FormData();
         formdata.append('image', $file);
         this.$axios({
-          url: 'http://127.0.0.1:5000/api/upload_image',
+          url: 'http://buglan.org/api/upload_image',
           method: 'post',
           data: formdata,
           headers: {'Content-Type': 'multipart/form-data', 'Authorization': 'Bearer ' + this.getCookie('token')},

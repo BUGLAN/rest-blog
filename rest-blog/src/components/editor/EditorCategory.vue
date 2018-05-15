@@ -30,7 +30,7 @@
     },
     mounted() {
       this.name = this.$route.params.name;
-      this.$axios.get('http://127.0.0.1:5000/api/category_operation', {params: {'name': this.name}}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+      this.$axios.get('http://buglan.org/api/category_operation', {params: {'name': this.name}}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
         .then(response => {
           this.category_id = response.data.category.id;
           document.title = '编辑 ' + this.name + ' | BUGLAN';
@@ -38,7 +38,7 @@
     },
     methods: {
       submit: function () {
-        this.$axios.put('http://127.0.0.1:5000/api/category_operation', {'id': this.category_id, 'name': this.name}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+        this.$axios.put('http://buglan.org/api/category_operation', {'id': this.category_id, 'name': this.name}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
           .then(response => {
             if (response.status === 200) {
               alert('修改成功')

@@ -39,7 +39,7 @@
     components: {NavHeader},
     methods: {
       submit: function () {
-        this.$axios.post('http://127.0.0.1:5000/api/login', {'username': this.username, 'password': this.password})
+        this.$axios.post('http://buglan.org/api/login', {'username': this.username, 'password': this.password})
           .then(response => {
             if (response.status === 200){
               let expireDays = 60 * 60 * 24 * 7;
