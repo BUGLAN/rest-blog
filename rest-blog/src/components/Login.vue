@@ -44,6 +44,7 @@
             if (response.status === 200){
               let expireDays = 60 * 60 * 24 * 7;
               this.setCookie('token', response.data.token, expireDays);
+              this.$router.go(-1)
             }else{
               alert('登录失败')
             }
