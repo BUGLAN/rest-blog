@@ -26,7 +26,7 @@
       },
       mounted(){
           this.name = this.$route.params.name;
-          this.$axios.get('http://buglan.org/api/tag_operation', {params: {'name': this.name}}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+          this.$axios.get('https://buglan.org/api/tag_operation', {params: {'name': this.name}}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
         .then(response => {
           this.tag_id = response.data.tag.id;
           document.title = '编辑 ' + this.name + ' | BUGLAN';
@@ -34,7 +34,7 @@
       },
       methods: {
           submit: function () {
-            this.$axios.put('http://buglan.org/api/tag_operation', {'id': this.tag_id, 'name': this.name}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+            this.$axios.put('https://buglan.org/api/tag_operation', {'id': this.tag_id, 'name': this.name}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
           .then(response => {
             if (response.status === 200) {
               alert('修改成功')

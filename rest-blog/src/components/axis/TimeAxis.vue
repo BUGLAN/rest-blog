@@ -19,7 +19,7 @@
       }
     },
     mounted() {
-      this.$axios.get('http://buglan.org/api/categories')
+      this.$axios.get('https://buglan.org/api/categories')
         .then(response => {
           this.items = response.data['category_json'];
           document.title = 'TimeAxis | BUGLAN';

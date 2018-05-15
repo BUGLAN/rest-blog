@@ -83,18 +83,18 @@
     },
     components: {NavHeader},
     mounted() {
-      this.$axios.get('http://buglan.org/api/category_titles', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+      this.$axios.get('https://buglan.org/api/category_titles', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
         .then(response => {
           this.categories = response.data.categories
         });
-      this.$axios.get('http://buglan.org/api/tag_titles', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+      this.$axios.get('https://buglan.org/api/tag_titles', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
         .then(response => {
           this.tags = response.data.tags
         })
     },
     methods: {
       $save(content, render) {
-        this.$axios.post('http://buglan.org/api/new_article', {
+        this.$axios.post('https://buglan.org/api/new_article', {
           'title': this.title,
           'content': content,
           'slug': this.slug,
