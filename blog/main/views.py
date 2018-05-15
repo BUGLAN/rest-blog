@@ -67,6 +67,7 @@ def article_operation():
             article.title = request.json.get('title')
             article.slug = request.json.get('slug')
             article.content = request.json['content']
+            article.update_time = datetime.now()
             category_id = request.json.get('category')
             if category_id and isinstance(category_id, int):
                 article.category = Category.query.get_or_404(category_id)
@@ -230,6 +231,7 @@ def category_operation():
         id = request.json.get('id')
         category = Category.query.get(id)
         category.name = name
+        category.update_time = datetime.now()
         db.session.add(category)
         db.session.commit()
         return jsonify({'status': 200})
@@ -250,6 +252,7 @@ def tag_operation():
         id = request.json.get('id')
         tag = Tag.query.get(id)
         tag.name = name
+        tag.update_time = datetime.now()
         db.session.add(tag)
         db.session.commit()
         return jsonify({'status': 200})
