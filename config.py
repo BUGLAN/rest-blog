@@ -7,3 +7,12 @@ class BaseConfig:
     PAGE_ITEMS = 10
     UPLOAD_FOLDER = os.path.join(os.getcwd(), 'dist', 'static', 'images')
     SECRET_KEY = 'you will never guess me'
+
+
+class TestConfig:
+	SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(os.path.abspath('.'), 'tests/test.db')
+	SQLALCHEMY_TRACK_MODIFICATIONS = False
+	PAGE_ITEMS = 10
+	UPLOAD_FOLDER = os.path.join(os.getcwd(), 'dist', 'static', 'images')
+	SECRET_KEY = 'you will never guess me'
+

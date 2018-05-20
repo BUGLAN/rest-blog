@@ -51,6 +51,8 @@
     components: {NavHeader},
     methods: {
       submit: function () {
+        console.log(this.tag)
+        console.log(this.check_articles)
         this.$axios.post('https://buglan.org/api/new_tag', {'tag': this.tag, 'articles': this.check_articles}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
           .then(response => {
             if (response.status === 200){
