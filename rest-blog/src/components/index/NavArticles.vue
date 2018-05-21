@@ -24,7 +24,7 @@
       }
     },
     mounted() {
-      this.$axios.get('https://buglan.org/api/articles', {params: {page: this.$route.query.page}})
+      this.$axios.get(process.env.API_HOST + '/api/articles', {params: {page: this.$route.query.page}})
         .then(response => {
           this.items = response.data['articles'];
         }).catch(response => {
@@ -33,7 +33,7 @@
     },
     watch: {
       '$route'(to, from) {
-        this.$axios.get('https://buglan.org/api/articles', {params: {page: this.$route.query.page}})
+        this.$axios.get(process.env.API_HOST + '/api/articles', {params: {page: this.$route.query.page}})
           .then(response => {
             this.items = response.data['articles'];
           })

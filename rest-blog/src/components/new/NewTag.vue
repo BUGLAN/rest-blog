@@ -9,7 +9,7 @@
         </tr>
         <br>
         <tr>
-          <th>标记 {{tag}}</th>
+          <th>标记 </th>
           <th>
             <select class="form-control" multiple="multiple" v-model="check_articles">
               <option :value="article.id" v-for="article in articles">{{article.title}}</option>
@@ -43,7 +43,7 @@
       }
     },
     mounted(){
-      this.$axios.get('https://buglan.org/api/article_titles', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+      this.$axios.get(process.env.API_HOST + '/api/article_titles', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
         .then(response => {
           this.articles = response.data.articles
         })
@@ -51,9 +51,7 @@
     components: {NavHeader},
     methods: {
       submit: function () {
-        console.log(this.tag)
-        console.log(this.check_articles)
-        this.$axios.post('https://buglan.org/api/new_tag', {'tag': this.tag, 'articles': this.check_articles}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+        this.$axios.post(process.env.API_HOST + '/api/new_tag', {'tag': this.tag, 'articles': this.check_articles}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
           .then(response => {
             if (response.status === 200){
               alert('新建标签成功')

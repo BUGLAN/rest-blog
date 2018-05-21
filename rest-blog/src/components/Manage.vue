@@ -100,7 +100,7 @@
       }
     },
     mounted() {
-      this.$axios.get('https://buglan.org/api/manage', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+      this.$axios.get(process.env.API_HOST + '/api/manage', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
         .then(response => {
           this.manage = response.data.manage;
           document.title = 'Manage | BUGLAN';
@@ -108,7 +108,7 @@
     },
     methods: {
       article_delete: function (id) {
-        this.$axios.delete('https://buglan.org/api/article_operation', {params: {'id': id}}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+        this.$axios.delete(process.env.API_HOST + '/api/article_operation', {params: {'id': id}}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
           .then(response => {
             if (response.status === 200) {
               alert('删除成功')
@@ -117,7 +117,7 @@
           })
       },
       category_delete: function (id) {
-        this.$axios.delete('https://buglan.org/api/category_operation', {params: {'id': id}}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+        this.$axios.delete(process.env.API_HOST + '/api/category_operation', {params: {'id': id}}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
           .then(response => {
             if (response.status === 200) {
               alert('删除成功')
@@ -126,7 +126,7 @@
           })
       },
       tag_delete: function (id) {
-        this.$axios.delete('https://buglan.org/api/tag_operation', {params: {'id': id}}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+        this.$axios.delete(process.env.API_HOST + '/api/tag_operation', {params: {'id': id}}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
           .then(response => {
             if (response.status === 200) {
               alert('删除成功')

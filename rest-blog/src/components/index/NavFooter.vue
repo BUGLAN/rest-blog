@@ -15,7 +15,7 @@
       }
     },
     mounted() {
-      this.$axios.get('https://buglan.org/api/pages')
+      this.$axios.get(process.env.API_HOST + '/api/pages')
         .then(response => {
           this.pages = response.data['pages']
         })

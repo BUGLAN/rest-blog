@@ -23,7 +23,7 @@
       return {item: []}
     },
     mounted() {
-      this.$axios.get('https://buglan.org/api/article', {params: {slug: this.$route.params.name}})
+      this.$axios.get(process.env.API_HOST + '/api/article', {params: {slug: this.$route.params.name}})
         .then(response => {
            let converter = new showdown.Converter();
           this.item = response.data.article;
