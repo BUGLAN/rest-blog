@@ -3,20 +3,7 @@ from blog.models import Article, Category, Tag
 from flask_restful import Resource, marshal_with, fields, reqparse
 from flask_sqlalchemy import sqlalchemy
 from flask import current_app, jsonify
-
-article_category_fields = {'id': fields.Integer, 'name': fields.String}
-
-tags_fields = {'id': fields.Integer, 'name': fields.String}
-
-get_article_fields = {
-    'id': fields.Integer,
-    'title': fields.String,
-    'content': fields.String,
-    'date':
-    fields.String(attribute=lambda x: x.create_time.strftime('%Y-%m-%d')),
-    'category': fields.Nested(article_category_fields),
-    'tags': fields.List(fields.Nested(tags_fields))
-}
+from blog.api.fields import article_category_fields, tags_fields, get_article_fields, get_category_fields, get_tag_fields, articles_fields, categories_fields
 
 
 class ArticleMethods(Resource):
@@ -144,9 +131,6 @@ class ArticleMethods(Resource):
         return {'status': 200, 'msg': '删除文章成功'}
 
 
-get_category_fields = {'id': fields.Integer, 'name': fields.String}
-
-
 class CategoryMethods(Resource):
     def __init__(self):
         self.get_parser = reqparse.RequestParser()
@@ -231,9 +215,6 @@ class CategoryMethods(Resource):
         db.session.delete(category)
         db.session.commit()
         return {'status': 200, 'msg': '删除分类成功'}
-
-
-get_tag_fields = {'id': fields.Integer, 'name': fields.String}
 
 
 class TagMethods(Resource):
@@ -323,15 +304,6 @@ class TagMethods(Resource):
         return {'status': 200, 'msg': '删除失败'}
 
 
-articles_fields = {
-    'id': fields.Integer,
-    'content': fields.String(attribute=lambda x: x.content[:100]),
-    'date':
-    fields.String(attribute=lambda x: x.create_time.strftime('%Y-%m-%d')),
-    'slug': fields.String
-}
-
-
 class Articles(Resource):
     def __init__(self):
         self.parser = reqparse.RequestParser()
@@ -348,19 +320,6 @@ class Articles(Resource):
         paginaton = Article.query.order_by(
             Article.create_time.desc()).paginate(page, items)
         return paginaton.items
-
-
-category_article_fields = {
-    'title': fields.String,
-    'date':
-    fields.String(attribute=lambda x: x.create_time.strftime('%Y-%m-%d'))
-}
-
-categories_fields = {
-    'id': fields.Integer,
-    'name': fields.String,
-    'articles': fields.Nested(category_article_fields)
-}
 
 
 class Categories(Resource):
@@ -405,10 +364,10 @@ class Mange(Resource):
             'name': tag.name,
             'date': tag.create_time.strftime('%Y-%m-%d')
         } for tag in Tag.query.all()]
-        return jsonify({
+        return {
             'manage': {
                 'categories': categories,
                 'articles': articles,
                 'tags': tags
             }
-        })
+        }
