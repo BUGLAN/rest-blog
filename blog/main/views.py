@@ -1,4 +1,10 @@
+"""
+my rest-blog api
+author buglan
+"""
+
 import os
+import sqlalchemy
 from datetime import datetime
 
 from flask import jsonify, request, current_app, make_response, abort
@@ -28,16 +34,22 @@ def unauthorized():
 @m.route('/articles')
 def get_articles():
     page = request.args.get('page') or 1
+    if not isinstance(page, int):
+        abort(404)
     items = current_app.config['PAGE_ITEMS']
-    pagination = Article.query.order_by(Article.create_time.desc()).paginate(int(page), items, error_out=False)
+    pagination = Article.query.order_by(Article.create_time.desc()).paginate(
+        int(page), items, error_out=False)
     """
     required: page = 1
     return to: {"articles": [
             {"date": '2018-2-2', "title": "title", "content": "content"}]}
     """
-    articles = [
-        {'date': article.create_time.strftime('%Y-%m-%d'), 'title': article.title, 'slug': article.slug,
-         'content': article.content[:100] + '...'} for article in pagination.items]
+    articles = [{
+        'date': article.create_time.strftime('%Y-%m-%d'),
+        'title': article.title,
+        'slug': article.slug,
+        'content': article.content[:100] + '...'
+    } for article in pagination.items]
     return jsonify({'articles': articles})
 
 
@@ -47,26 +59,36 @@ def get_article():
     if slug:
         article = Article.query.filter_by(slug=slug).first()
         if article:
-            return jsonify(
-                {'article': {'title': article.title, 'content': article.content, 'slug': article.slug,
-                             'date': article.create_time.strftime('%Y-%m-%d'), 'id': article.id,
-                             'category': {'id': article.category.id,
-                                          'name': article.category.name} if article.category else '',
-                             'tags': {'id': [tag.id for tag in article.tags],
-                                      'name': [tag.name for tag in article.tags]}
-                             }})
-        return jsonify({'status': 400}), 400
+            return jsonify({
+                'article': {
+                    'title': article.title,
+                    'content': article.content,
+                    'slug': article.slug,
+                    'date': article.create_time.strftime('%Y-%m-%d'),
+                    'id': article.id,
+                    'category': {
+                        'id': article.category.id,
+                        'name': article.category.name
+                    } if article.category else '',
+                    'tags': {
+                        'id': [tag.id for tag in article.tags],
+                        'name': [tag.name for tag in article.tags]
+                    }
+                }
+            })
+        abort(404)
     else:
-        return jsonify({'status': 404}), 404
+        abort(400)
+
 
 @m.route('/article_operation', methods=['PUT', 'DELETE'])
 def article_operation():
     if request.method == 'PUT':
         try:
             id = request.json.get('id')
-        except AttributeError as e:
+        except AttributeError:
             return jsonify({'msg': 'fail', 'status_code': 400})
-        if id:
+        if isinstance(id, int):
             article = Article.query.get(id)
             article.title = request.json.get('title')
             article.slug = request.json.get('slug')
@@ -75,7 +97,9 @@ def article_operation():
             category_id = request.json.get('category')
             if category_id and isinstance(category_id, int):
                 article.category = Category.query.get_or_404(category_id)
-            article.tags = [Tag.query.get(tag_id) for tag_id in request.json.get('tags')]
+            article.tags = [
+                Tag.query.get(tag_id) for tag_id in request.json.get('tags')
+            ]
             article.update_time = datetime.now()
             db.session.add(article)
             db.session.commit()
@@ -83,7 +107,10 @@ def article_operation():
         else:
             return jsonify({{'msg': 'not found', 'status_code': 404}})
     elif request.method == 'DELETE':
-        id = request.args.get('id')
+        try:
+            id = request.args.get('id')
+        except AttributeError:
+            abort(400)
         article = Article.query.get(id)
         db.session.delete(article)
         db.session.commit()
@@ -107,43 +134,78 @@ def get_categories():
         categories: [{"python": {title: "..."}}]
     }
     """
-    category_json = [
-        {'name': category.name,
-         'titles': [{"name": article.title, 'date': article.create_time.strftime('%Y-%m-%d')}
-                    for article in category.articles]} for category in Category.query.all()]
+    category_json = [{
+        'name':
+        category.name,
+        'titles': [{
+            "name": article.title,
+            'date': article.create_time.strftime('%Y-%m-%d')
+        } for article in category.articles]
+    } for category in Category.query.all()]
     return jsonify({"category_json": category_json})
 
 
 @m.route('/manage')
 @auth.login_required
 def manage():
-    categories = [{'name': category.name, 'id': category.id, 'date': category.create_time.strftime('%Y-%m-%d')} for
-                  category in Category.query.all()]
-    articles = [
-        {'id': article.id, 'title': article.title, 'slug': article.slug, 'category': article.category.name if article.category else '',
-         'tags': [tag.name for tag in article.tags] if article.tags else [],
-         'date': article.create_time.strftime('%Y-%m-%d')} for article in Article.query.all()]
-    tags = [{'id': tag.id, 'name': tag.name, 'date': tag.create_time.strftime('%Y-%m-%d')} for tag in Tag.query.all()]
-    return jsonify({'manage': {'categories': categories, 'articles': articles, 'tags': tags}})
+    categories = [{
+        'name': category.name,
+        'id': category.id,
+        'date': category.create_time.strftime('%Y-%m-%d')
+    } for category in Category.query.all()]
+    articles = [{
+        'id':
+        article.id,
+        'title':
+        article.title,
+        'slug':
+        article.slug,
+        'category':
+        article.category.name if article.category else '',
+        'tags': [tag.name for tag in article.tags] if article.tags else [],
+        'date':
+        article.create_time.strftime('%Y-%m-%d')
+    } for article in Article.query.all()]
+    tags = [{
+        'id': tag.id,
+        'name': tag.name,
+        'date': tag.create_time.strftime('%Y-%m-%d')
+    } for tag in Tag.query.all()]
+    return jsonify({
+        'manage': {
+            'categories': categories,
+            'articles': articles,
+            'tags': tags
+        }
+    })
 
 
 @m.route('/article_titles')
 @auth.login_required
 def get_article_titles():
-    articles = [{'id': article.id, 'title': article.title} for article in Article.query.all()]
+    articles = [{
+        'id': article.id,
+        'title': article.title
+    } for article in Article.query.all()]
     return jsonify({'articles': articles})
 
 
 @m.route('/category_titles')
 @auth.login_required
 def get_category_titles():
-    categories = [{'id': category.id, 'name': category.name} for category in Category.query.all()]
+    categories = [{
+        'id': category.id,
+        'name': category.name
+    } for category in Category.query.all()]
     return jsonify({'categories': categories})
 
 
 @m.route('/tag_titles')
 @auth.login_required
 def get_tag_titles():
+    """
+    provide tag basic msg
+    """
     tags = [{'id': tag.id, 'name': tag.name} for tag in Tag.query.all()]
     return jsonify({'tags': tags})
 
@@ -151,15 +213,25 @@ def get_tag_titles():
 @m.route('/new_category', methods=['POST'])
 @auth.login_required
 def new_category():
-    category = request.json.get('category')
-    article_ids = request.json.get('articles')
-    if category and article_ids:
-        articles = [Article.query.get(int(id)) for id in article_ids]
-        c = Category()
-        c.name = category
-        c.articles = articles
-        db.session.add(c)
-        db.session.commit()
+    try:
+        category = request.json.get('category')
+        article_ids = request.json.get('articles')
+    except AttributeError:
+        abort(400)
+    print(category)
+    if category:
+        try:
+            articles = [Article.query.get(id) for id in article_ids]
+        except BaseException:
+            abort(400)
+        try:
+            c = Category()
+            c.name = category
+            c.articles = articles
+            db.session.add(c)
+            db.session.commit()
+        except sqlalchemy.exc.IntegrityError:
+            return jsonify({'status': '400', 'msg': '分类名重复'}), 400
         return jsonify({'status': 200})
     return jsonify({'status': 404}), 404
 
@@ -167,15 +239,21 @@ def new_category():
 @m.route('/new_tag', methods=['POST'])
 @auth.login_required
 def new_tag():
-    tag = request.json.get('tag')
-    article_ids = request.json.get('articles')
-    if tag and article_ids:
+    try:
+        tag = request.json.get('tag')
+        article_ids = request.json.get('articles')
+    except AttributeError:
+        abort(400)
+    if tag:
         articles = [Article.query.get(int(id)) for id in article_ids]
-        t = Tag()
-        t.name = tag
-        t.articles = articles
-        db.session.add(t)
-        db.session.commit()
+        try:
+            t = Tag()
+            t.name = tag
+            t.articles = articles
+            db.session.add(t)
+            db.session.commit()
+        except sqlalchemy.exc.IntegrityError:
+            return jsonify({'status': 400, 'msg': '标签名重复'}), 400
         return jsonify({'status': 200})
     return jsonify({'status': 404}), 404
 
@@ -183,16 +261,22 @@ def new_tag():
 @m.route('/new_article', methods=['POST'])
 @auth.login_required
 def new_article():
-    title = request.json.get('title')
-    slug = request.json.get('slug')
-    category_id = request.json.get('category')
-    tag_ids = request.json.get('tags')
-    content = request.json.get('content')
+    try:
+        title = request.json.get('title')
+        slug = request.json.get('slug')
+        category_id = request.json.get('category')
+        tag_ids = request.json.get('tags')
+        content = request.json.get('content')
+    except AttributeError:
+        abort(400)
     if title and content:
         article = Article()
         article.title = title
         article.slug = slug
-        article.category = Category.query.get(category_id) if category_id and isinstance(category_id, int) else None
+        try:
+            article.category = Category.query.get(category_id)
+        except:
+            pass
         article.tags = [Tag.query.get(int(id)) for id in tag_ids]
         article.content = content
         db.session.add(article)
@@ -204,12 +288,21 @@ def new_article():
 @m.route('/upload_image', methods=['POST'])
 @auth.login_required
 def upload_image():
-    file = request.files.get('image')
+    try:
+        file = request.files.get('image')
+    except AttributeError:
+        abort(400)
     if file and file.filename:
         if not os.path.exists(current_app.config['UPLOAD_FOLDER']):
             os.makedirs(current_app.config['UPLOAD_FOLDER'])
-        file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], file.filename))
-        return jsonify({'url': 'http://127.0.0.1:5000/' + 'static/' + 'images/' + file.filename, 'status': 200})
+        file.save(
+            os.path.join(current_app.config['UPLOAD_FOLDER'], file.filename))
+        return jsonify({
+            'url':
+            'http://127.0.0.1:5000/' + 'static/' + 'images/' + file.filename,
+            'status':
+            200
+        })
     else:
         return jsonify({'status': 400})
 
@@ -220,7 +313,12 @@ def category_operation():
         name = request.args.get('name')
         category = Category.query.filter_by(name=name).first()
         if category:
-            return jsonify({'category': {'id': category.id, 'name': category.name}})
+            return jsonify({
+                'category': {
+                    'id': category.id,
+                    'name': category.name
+                }
+            })
         else:
             return jsonify({'status': 404})
     elif request.method == 'DELETE':
@@ -271,13 +369,16 @@ def tag_operation():
 
 @m.route('/login', methods=['POST'])
 def login():
-    username = request.json.get('username')
-    password = request.json.get('password')
-    user = User.query.filter(and_(User.password == password, User.name == username)).first()
+    try:
+        username = request.json.get('username')
+        password = request.json.get('password')
+    except AttributeError:
+        abort(400)
+    user = User.query.filter(
+        and_(User.password == password, User.name == username)).first()
     if user:
         token = user.generate_auth_token().decode('ascii')
         response = make_response(jsonify({'token': token}), 200)
-        # response.set_cookie(key='token', value=user.generate_auth_token().decode('ascii'), secure=False)
         return response
     else:
         abort(400)
@@ -287,5 +388,3 @@ def login():
 @auth.login_required
 def login_test():
     return jsonify({'msg': 'success'})
-
-

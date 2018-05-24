@@ -17,7 +17,6 @@
           <th>Category:</th>
           <th>
             <select class="form-control" v-model="check_category">
-              <option value="" ></option>
               <option :value="category.id" v-for="category in categories">{{category.name}}</option>
             </select>
           </th>
@@ -52,7 +51,7 @@
         slug: '',
         tags: [],
         categories: '',
-        check_category: [],
+        check_category: '',
         check_tags: [],
         title: '',
         toolbars: {
@@ -103,7 +102,6 @@
         }, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}}).then(response => {
           if (response.status === 200){
             alert('新建文章成功')
-            console.log(this.check_category)
           }else{
             alert('新建文章失败')
           }

@@ -40,7 +40,7 @@
           }
       },
       mounted(){
-      this.$axios.get('https://buglan.org/api/article_titles', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+      this.$axios.get(process.env.API_HOST + '/api/article_titles', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
         .then(response => {
           this.articles = response.data.articles
         })
@@ -48,7 +48,7 @@
       components: {NavHeader},
       methods: {
           submit: function(){
-            this.$axios.post('https://buglan.org/api/new_category', {'category': this.category, 'articles': this.check_articles}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+            this.$axios.post(process.env.API_HOST + '/api/new_category', {'category': this.category, 'articles': this.check_articles}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
               .then(response => {
                 if (response.status === 200){
                   alert('新建成功');

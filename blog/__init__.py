@@ -11,9 +11,13 @@ def create_app(config):
     CORS(app)
 
     # 相关路由
-    from blog.root.views import root
-    app.register_blueprint(root)
-    from blog.main.views import m
-    app.register_blueprint(m, url_prefix='/api')
+    #from blog.main.views import m
+    #app.register_blueprint(m, url_prefix='/api')
+    from blog.api.urls import api_blueprint
+    app.register_blueprint(api_blueprint, url_prefix='/api')
 
     return app
+
+
+
+

@@ -69,7 +69,7 @@ class Article(db.Model):
         self.update_time = datetime.now()
 
     def __repr__(self):
-        return '<Article %r> at %r' % (self.title, self.create_time)
+        return '<Article %r> at' % self.title
 
 
 class Category(db.Model):

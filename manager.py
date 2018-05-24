@@ -17,7 +17,13 @@ manager.add_command('db', MigrateCommand)
 
 @manager.shell
 def manager_shell_context():
-    return dict(Article=Article, User=User, Category=Category, db=db, Tag=Tag, article_tag=article_tag)
+    return dict(
+        Article=Article,
+        User=User,
+        Category=Category,
+        db=db,
+        Tag=Tag,
+        article_tag=article_tag)
 
 
 if __name__ == '__main__':
