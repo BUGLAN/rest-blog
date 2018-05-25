@@ -26,7 +26,7 @@
     mounted() {
       this.$axios.get(process.env.API_HOST + '/api/articles', {params: {page: this.$route.query.page}})
         .then(response => {
-          this.items = response.data['articles'];
+          this.items = response.data;
         }).catch(response => {
         alert("出现错误请联系管理员")
       })
@@ -35,7 +35,7 @@
       '$route'(to, from) {
         this.$axios.get(process.env.API_HOST + '/api/articles', {params: {page: this.$route.query.page}})
           .then(response => {
-            this.items = response.data['articles'];
+            this.items = response.data;
           })
       }
     }

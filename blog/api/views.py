@@ -2,10 +2,17 @@ from extand import db
 from blog.models import Article, Category, Tag, User
 from flask_restful import Resource, marshal_with, fields, reqparse
 from flask_sqlalchemy import sqlalchemy
-from flask import current_app, jsonify
-from blog.api.fields import article_category_fields, tags_fields, get_article_fields, get_category_fields, get_tag_fields, articles_fields, categories_fields
+from flask import current_app, jsonify, make_response
+from blog.api.fields import article_category_fields, tags_fields, get_article_fields, get_category_fields, get_tag_fields, articles_fields, categories_fields, mega_article_fields, mega_some_fields
 from blog.api.auth import auth
 from sqlalchemy import and_
+
+
+def blank_and_int(value, name):
+    if isinstance(value, int) or value == "":
+        return value
+    raise ValueError(
+        "{} is not right format, you shuold give rigth format".format(name))
 
 
 class ArticleMethods(Resource):
@@ -34,8 +41,7 @@ class ArticleMethods(Resource):
             help='the argument cannot be blank')
         self.post_parser.add_argument(
             'category_id',
-            type=int,
-            required=True,
+            type=blank_and_int,
             help='the argument cannot be blank')
         self.post_parser.add_argument(
             'tag_ids',
@@ -64,8 +70,7 @@ class ArticleMethods(Resource):
             help='the argument cannot be blank')
         self.put_parser.add_argument(
             'category_id',
-            type=int,
-            required=True,
+            type=blank_and_int,
             help='the argument cannot be blank')
         self.put_parser.add_argument(
             'tag_ids',
@@ -77,6 +82,7 @@ class ArticleMethods(Resource):
         self.delete_parser.add_argument(
             'id', type=int, required=True, help='the argument cannot be blank')
 
+    @auth.login_required
     @marshal_with(get_article_fields)
     def get(self):
         args = self.get_parser.parse_args()
@@ -92,11 +98,11 @@ class ArticleMethods(Resource):
             article.slug = args['slug']
             article.content = args['content']
             article.category = Category.query.get(args['category_id'])
-            article.tags = [
-                Tag.query.get(id) for id in args['tag_ids']
-                if Tag.query.get(id)
-            ] if args['tag_ids'] else []
-            # 相当于[None]如果Tag.query.get(id) 不存在的话
+            for id in args['tag_ids'] or []:
+                tag = Tag.query.get_or_404(id)
+                article.tags.append(tag)
+                db.session.add(article)
+                db.session.commit()
             db.session.add(article)
             db.session.commit()
         except sqlalchemy.exc.IntegrityError:
@@ -116,11 +122,7 @@ class ArticleMethods(Resource):
             article.slug = args['slug']
             article.content = args['content']
             article.category = Category.query.get(args['category_id'])
-            article.tags = [
-                Tag.query.get(id) for id in args['tag_ids']
-                if Tag.query.get(id)
-            ] if args['tag_ids'] else []
-            # 相当于[None 如果Tag.query.get(id) 不存在的话]
+            article.tags = [Tag.query.get_or_404(id) for id in args['tag_ids']] if args['tag_ids'] else []
             db.session.add(article)
             db.session.commit()
         except sqlalchemy.exc.IntegrityError:
@@ -136,6 +138,12 @@ class ArticleMethods(Resource):
         db.session.delete(article)
         db.session.commit()
         return {'status': 200, 'msg': '删除文章成功'}
+
+    def options(self):
+       r = make_response(jsonify({'status':200}))
+       r.headers['Access-Control-Allow-Headers'] = "Authorization"
+       return r
+
 
 
 class CategoryMethods(Resource):
@@ -165,11 +173,6 @@ class CategoryMethods(Resource):
             'name',
             type=str,
             required=True,
-            help='the argument cannot be blank')
-        self.put_parser.add_argument(
-            'article_ids',
-            type=int,
-            action='append',
             help='the argument cannot be blank')
 
         self.delete_parser = reqparse.RequestParser()
@@ -208,10 +211,6 @@ class CategoryMethods(Resource):
         category = Category.query.get_or_404(args['id'])
         try:
             category.name = args['name']
-            category.articles = [
-                Article.quert.get(id) for id in args['article_ids']
-                if Article.query.get(id)
-            ] if args['article_ids'] else []
             db.session.add(category)
             db.session.commit()
         except sqlalchemy.exc.IntegrityError:
@@ -227,6 +226,12 @@ class CategoryMethods(Resource):
         db.session.delete(category)
         db.session.commit()
         return {'status': 200, 'msg': '删除分类成功'}
+
+    def options(self):
+       r = make_response(jsonify({'status':200}))
+       r.headers['Access-Control-Allow-Headers'] = "Authorization"
+       return r
+
 
 
 class TagMethods(Resource):
@@ -258,11 +263,6 @@ class TagMethods(Resource):
             type=str,
             required=True,
             help='the argument cannot be blank')
-        self.put_parser.add_argument(
-            'article_ids',
-            type=int,
-            action='append',
-            help='the argument cannot be blank')
 
         self.delete_parser = reqparse.RequestParser()
         self.delete_parser.add_argument(
@@ -280,10 +280,10 @@ class TagMethods(Resource):
         try:
             tag = Tag()
             tag.name = args['name']
-            tag.articles = [
-                Article.query.get(id) for id in args['article_ids']
-                if Article.query.get(id)
-            ] if args['article_ids'] else []
+            for id in args['article_ids'] or []:
+                tag.articles.append(Article.query.get_or_404(id))
+                db.session.add(tag)
+                db.session.commit()
             db.session.add(tag)
             db.session.commit()
         except sqlalchemy.exc.IntegrityError:
@@ -300,10 +300,6 @@ class TagMethods(Resource):
         tag = Tag.query.get_or_404(args['id'])
         try:
             tag.name = args['name']
-            tag.articles = [
-                Article.query.get(id) for id in args['article_ids']
-                if Article.query.get(id)
-            ] if args['article_ids'] else []
             db.session.add(tag)
             db.session.commit()
         except sqlalchemy.exc.IntegrityError:
@@ -320,7 +316,12 @@ class TagMethods(Resource):
         tag = Tag.query.get_or_404(args['id'])
         db.session.delete(tag)
         db.session.commit()
-        return {'status': 200, 'msg': '删除失败'}
+        return {'status': 200, 'msg': '删除成功'}
+
+    def options(self):
+       r = make_response(jsonify({'status':200}))
+       r.headers['Access-Control-Allow-Headers'] = "Authorization"
+       return r
 
 
 class Articles(Resource):
@@ -357,7 +358,7 @@ class Page(Resource):
         return {'pages': [page for page in range(1, page_num + 1)]}
 
 
-class Mange(Resource):
+class Manage(Resource):
     @auth.login_required
     def get(self):
         categories = [{
@@ -393,25 +394,54 @@ class Mange(Resource):
         }
 
 
-
 class Login(Resource):
     def __init__(self):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument(
-                'username',
-                type=str,
-                required=True,
-                help='this argument cannot be blank'
-                )
+            'username',
+            type=str,
+            required=True,
+            help='this argument cannot be blank')
         self.parser.add_argument(
-                'password',
+            'password',
+            type=str,
+            required=True,
+            help='this argument cannot be blank')
+
+    def post(self):
+        args = self.parser.parse_args()
+        user = User.query.filter(
+            and_(User.name == args['username'],
+                 User.password == args['password'])).first_or_404()
+        token = user.generate_auth_token().decode('ascii')
+        return {'token': token}
+
+
+class megaArticle(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument(
+                'slug',
                 type=str,
                 required=True,
                 help='this argument cannot be blank'
                 )
 
-    def post(self):
+    @marshal_with(mega_article_fields)
+    def get(self):
         args = self.parser.parse_args()
-        user = User.query.filter(and_(User.name == args['username'], User.password==args['password'])).first_or_404()
-        token = user.generate_auth_token().decode('ascii')
-        return {'token': token}
+        return Article.query.filter_by(slug=args['slug']).first_or_404()
+
+
+"""
+class megaCategories(Resource):
+    @marshal_with(mega_some_fields)
+    def get(self):
+        return Category.query.all()
+"""
+
+
+class megaTags(Resource):
+    @marshal_with(mega_some_fields)
+    def get(self):
+        return Tag.query.all()

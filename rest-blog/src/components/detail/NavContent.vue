@@ -23,14 +23,14 @@
       return {item: []}
     },
     mounted() {
-      this.$axios.get(process.env.API_HOST + '/api/article', {params: {slug: this.$route.params.name}})
+      this.$axios.get(process.env.API_HOST + '/api/mega_article', {params: {slug: this.$route.params.name}})
         .then(response => {
            let converter = new showdown.Converter();
-          this.item = response.data.article;
+          this.item = response.data;
           this.item.content = converter.makeHtml(this.item.content);
           document.title = this.item.title + ' | BUGLAN'
         }).catch(response => {
-          console.log(response.status)
+            console.log(response)
       })
     },
   }

@@ -21,20 +21,20 @@
       data(){
           return {
             name: '',
-            tag_id: ''
+            tag_id: '',
           }
       },
       mounted(){
           this.name = this.$route.params.name;
-          this.$axios.get(process.env.API_HOST + '/api/tag_operation', {params: {'name': this.name}}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+          this.$axios.get(process.env.API_HOST + '/api/tag', {params: {'name': this.name}}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
         .then(response => {
-          this.tag_id = response.data.tag.id;
+          this.tag_id = response.data.id;
           document.title = '编辑 ' + this.name + ' | BUGLAN';
         })
       },
       methods: {
           submit: function () {
-            this.$axios.put(process.env.API_HOST + '/api/tag_operation', {'id': this.tag_id, 'name': this.name}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+            this.$axios.put(process.env.API_HOST + '/api/tag', {'id': this.tag_id, 'name': this.name}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
           .then(response => {
             if (response.status === 200) {
               alert('修改成功')

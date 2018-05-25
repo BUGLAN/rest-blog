@@ -82,23 +82,23 @@
     },
     components: {NavHeader},
     mounted() {
-      this.$axios.get(process.env.API_HOST + '/api/category_titles', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+      this.$axios.get(process.env.API_HOST + '/api/categories', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
         .then(response => {
-          this.categories = response.data.categories
+          this.categories = response.data
         });
-      this.$axios.get(process.env.API_HOST + '/api/tag_titles', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+      this.$axios.get(process.env.API_HOST + '/api/tags', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
         .then(response => {
-          this.tags = response.data.tags
+          this.tags = response.data
         })
     },
     methods: {
       $save(content, render) {
-        this.$axios.post(process.env.API_HOST + '/api/new_article', {
+        this.$axios.post(process.env.API_HOST + '/api/article', {
           'title': this.title,
           'content': content,
           'slug': this.slug,
-          'tags': this.check_tags,
-          'category': this.check_category
+          'tag_ids': this.check_tags,
+          'category_id': this.check_category
         }, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}}).then(response => {
           if (response.status === 200){
             alert('新建文章成功')

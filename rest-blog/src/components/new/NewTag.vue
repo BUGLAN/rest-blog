@@ -43,15 +43,15 @@
       }
     },
     mounted(){
-      this.$axios.get(process.env.API_HOST + '/api/article_titles', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+      this.$axios.get(process.env.API_HOST + '/api/articles', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
         .then(response => {
-          this.articles = response.data.articles
+          this.articles = response.data
         })
     },
     components: {NavHeader},
     methods: {
       submit: function () {
-        this.$axios.post(process.env.API_HOST + '/api/new_tag', {'tag': this.tag, 'articles': this.check_articles}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+        this.$axios.post(process.env.API_HOST + '/api/tag', {'name': this.tag, 'article_ids': this.check_articles}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
           .then(response => {
             if (response.status === 200){
               alert('新建标签成功')
@@ -59,6 +59,7 @@
                alert('新建标签失败, 请重新尝试')
             }
           })
+          console.log(this.check_articles)
       }
     }
   }

@@ -15,7 +15,6 @@
         <th>Category:</th>
         <th>
           <select class="form-control" v-model="check_category">
-            <option value="0"></option>
             <template v-for="category in categories">
               <option :value="category.id">{{category.name}}</option>
             </template>
@@ -90,35 +89,35 @@
       }
     },
     mounted() {
-      this.$axios.get(process.env.API_HOST + '/api/article', {params: {slug: this.$route.params.name}})
+        this.$axios.get(process.env.API_HOST + '/api/article?slug=' + this.$route.params.name, {headers: {'Authorization': 'Bearer ' + this.getCookie('token')}})
         .then(response => {
-          this.article = response.data.article;
+          this.article = response.data;
           this.check_category = this.article.category.id;
-          this.check_tags = this.article.tags.id;
+          this.check_tags = this.article.tags.map(_ => _.id);
           document.title = '编辑 ' + this.article.title + ' | BUGLAN';
 
           // let converter = new showdown.Converter()
           // this.content = converter.makeHtml(response.data.article.content)
         });
-      this.$axios.get(process.env.API_HOST + '/api/tag_titles', {headers: {'Authorization': 'Bearer ' + this.getCookie('token')}})
+      this.$axios.get(process.env.API_HOST + '/api/tags', {headers: {'Authorization': 'Bearer ' + this.getCookie('token')}})
         .then(response => {
-          this.tags = response.data.tags
+          this.tags = response.data
         });
-      this.$axios.get(process.env.API_HOST + '/api/category_titles', {headers: {'Authorization': 'Bearer ' + this.getCookie('token')}})
+      this.$axios.get(process.env.API_HOST + '/api/categories', {headers: {'Authorization': 'Bearer ' + this.getCookie('token')}})
         .then(response => {
-          this.categories = response.data.categories
+          this.categories = response.data
         });
     },
     methods: {
       $save(content, render) {
-        this.$axios.put(process.env.API_HOST + '/api/article_operation', {
+        this.$axios.put(process.env.API_HOST + '/api/article', {
           title: this.article.title,
           content: content,
           slug: this.article.slug,
           id: this.article.id,
-          category: this.check_category,
-          tags: this.check_tags
-        }, {headers: {'Authorization': 'Bearer ' + this.getCookie('token')}})
+          category_id: this.check_category,
+          tag_ids: this.check_tags
+        }, {headers: {"Authorization": "Bearer " + this.getCookie('token')}})
           .then(response => {
             if (response.status === 200) {
               alert('保存成功')

@@ -55,7 +55,7 @@
         <td>{{category.date}}</td>
         <td>
           <router-link :to="{path: '/manage' + '/category/' + category.name + '/editor'}">edit</router-link>
-          <a @click="category_delete(category.id)">delete</a></td>
+          <a href=""  @click="category_delete(category.id)">delete</a></td>
       </tr>
       </tbody>
     </table>
@@ -80,7 +80,7 @@
         <td>{{tag.date}}</td>
         <td>
           <router-link :to="{path: '/manage' + '/tag/' + tag.name + '/editor'}">edit</router-link>
-          <a href="" @click="tag_delete(tag.id)">delete</a></td>
+          <a href=""  @click="tag_delete(tag.id)">delete</a></td>
       </tr>
       </tbody>
     </table>
@@ -108,7 +108,7 @@
     },
     methods: {
       article_delete: function (id) {
-        this.$axios.delete(process.env.API_HOST + '/api/article_operation', {params: {'id': id}}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+          this.$axios.delete(process.env.API_HOST + '/api/article?id=' + id, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
           .then(response => {
             if (response.status === 200) {
               alert('删除成功')
@@ -117,7 +117,7 @@
           })
       },
       category_delete: function (id) {
-        this.$axios.delete(process.env.API_HOST + '/api/category_operation', {params: {'id': id}}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+          this.$axios.delete(process.env.API_HOST + '/api/category?id=' + id, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
           .then(response => {
             if (response.status === 200) {
               alert('删除成功')
@@ -126,7 +126,7 @@
           })
       },
       tag_delete: function (id) {
-        this.$axios.delete(process.env.API_HOST + '/api/tag_operation', {params: {'id': id}}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+          this.$axios.delete(process.env.API_HOST + '/api/tag?id=' + id, {headers: {'Authorization': 'Bearer ' + this.getCookie('token')}})
           .then(response => {
             if (response.status === 200) {
               alert('删除成功')
