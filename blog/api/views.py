@@ -6,6 +6,7 @@ from flask import current_app, jsonify, make_response
 from blog.api.fields import article_category_fields, tags_fields, get_article_fields, get_category_fields, get_tag_fields, articles_fields, categories_fields, mega_article_fields, mega_some_fields
 from blog.api.auth import auth
 from sqlalchemy import and_
+from datetime import datetime
 
 
 def blank_and_int(value, name):
@@ -122,7 +123,9 @@ class ArticleMethods(Resource):
             article.slug = args['slug']
             article.content = args['content']
             article.category = Category.query.get(args['category_id'])
-            article.tags = [Tag.query.get_or_404(id) for id in args['tag_ids']] if args['tag_ids'] else []
+            article.tags = [
+                Tag.query.get_or_404(id) for id in args['tag_ids']
+            ] if args['tag_ids'] else []
             db.session.add(article)
             db.session.commit()
         except sqlalchemy.exc.IntegrityError:
@@ -140,10 +143,9 @@ class ArticleMethods(Resource):
         return {'status': 200, 'msg': '删除文章成功'}
 
     def options(self):
-       r = make_response(jsonify({'status':200}))
-       r.headers['Access-Control-Allow-Headers'] = "Authorization"
-       return r
-
+        r = make_response(jsonify({'status': 200}))
+        r.headers['Access-Control-Allow-Headers'] = "Authorization"
+        return r
 
 
 class CategoryMethods(Resource):
@@ -228,10 +230,9 @@ class CategoryMethods(Resource):
         return {'status': 200, 'msg': '删除分类成功'}
 
     def options(self):
-       r = make_response(jsonify({'status':200}))
-       r.headers['Access-Control-Allow-Headers'] = "Authorization"
-       return r
-
+        r = make_response(jsonify({'status': 200}))
+        r.headers['Access-Control-Allow-Headers'] = "Authorization"
+        return r
 
 
 class TagMethods(Resource):
@@ -319,9 +320,9 @@ class TagMethods(Resource):
         return {'status': 200, 'msg': '删除成功'}
 
     def options(self):
-       r = make_response(jsonify({'status':200}))
-       r.headers['Access-Control-Allow-Headers'] = "Authorization"
-       return r
+        r = make_response(jsonify({'status': 200}))
+        r.headers['Access-Control-Allow-Headers'] = "Authorization"
+        return r
 
 
 class Articles(Resource):
@@ -421,11 +422,10 @@ class megaArticle(Resource):
     def __init__(self):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument(
-                'slug',
-                type=str,
-                required=True,
-                help='this argument cannot be blank'
-                )
+            'slug',
+            type=str,
+            required=True,
+            help='this argument cannot be blank')
 
     @marshal_with(mega_article_fields)
     def get(self):
@@ -445,3 +445,25 @@ class megaTags(Resource):
     @marshal_with(mega_some_fields)
     def get(self):
         return Tag.query.all()
+
+
+class UploadImage(Resource):
+    def post(self):
+        try:
+            file = request.files.get('image')
+        except AttributeError:
+            abort(400)
+        if file and file.filename:
+            date = datetime.now().strftime('%Y-%m')
+            path = os.path.join(current_app.config['UPLOAD_FOLDER'], date)
+            if not os.path.exists(path):
+                os.makedirs(path)
+            file.save(os.path.join(path, file.filename))
+            return {
+                'url':
+                'https://buglan.org' + '/static' + '/images/' + file.filename,
+                'status':
+                200
+            }
+        else:
+            return {'status': 400}
