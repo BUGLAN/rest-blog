@@ -59,7 +59,6 @@
                alert('新建标签失败, 请重新尝试')
             }
           })
-          console.log(this.check_articles)
       }
     }
   }

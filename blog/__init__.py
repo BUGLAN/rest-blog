@@ -1,12 +1,13 @@
 from flask import Flask
 from extand import db
 from flask_cors import CORS
+from config import config
 
 
-def create_app(config):
+def create_app(config_name):
     # 相关配置
     app = Flask(__name__, static_folder='../dist/static', template_folder='../dist')
-    app.config.from_object(config)
+    app.config.from_object(config[config_name])
     db.init_app(app)
     CORS(app)
 

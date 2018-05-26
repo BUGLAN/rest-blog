@@ -99,11 +99,7 @@ class ArticleMethods(Resource):
             article.slug = args['slug']
             article.content = args['content']
             article.category = Category.query.get(args['category_id'])
-            for id in args['tag_ids'] or []:
-                tag = Tag.query.get_or_404(id)
-                article.tags.append(tag)
-                db.session.add(article)
-                db.session.commit()
+            article.tags = [Tag.query.get_or_404(id) for id in args['tag_ids']] if args['tag_ids'] else []
             db.session.add(article)
             db.session.commit()
         except sqlalchemy.exc.IntegrityError:
@@ -112,6 +108,9 @@ class ArticleMethods(Resource):
         except sqlalchemy.exc.InvalidRequestError:
             db.session.rollback()
             return {'status': 400, 'msg': '字段冲突'}, 400
+        except LookupError:
+            db.session.rollback()
+            return {'status': 400, 'msg': '编码冲突'}, 400
         return {'status': 200, 'msg': '新建文章成功'}
 
     @auth.login_required
@@ -123,9 +122,7 @@ class ArticleMethods(Resource):
             article.slug = args['slug']
             article.content = args['content']
             article.category = Category.query.get(args['category_id'])
-            article.tags = [
-                Tag.query.get_or_404(id) for id in args['tag_ids']
-            ] if args['tag_ids'] else []
+            article.tags = [Tag.query.get_or_404(id) for id in args['tag_ids']] if args['tag_ids'] else []
             db.session.add(article)
             db.session.commit()
         except sqlalchemy.exc.IntegrityError:
@@ -194,8 +191,7 @@ class CategoryMethods(Resource):
             category = Category()
             category.name = args['name']
             category.articles = [
-                Article.query.get(id) for id in args['article_ids']
-                if Article.query.get(id)
+                Article.query.get_or_404(id) for id in args['article_ids']
             ] if args['article_ids'] else []
             db.session.add(category)
             db.session.commit()
@@ -281,10 +277,7 @@ class TagMethods(Resource):
         try:
             tag = Tag()
             tag.name = args['name']
-            for id in args['article_ids'] or []:
-                tag.articles.append(Article.query.get_or_404(id))
-                db.session.add(tag)
-                db.session.commit()
+            tag.articles = [Article.query.get_or_404(id) for id in args['article_ids']] if args['article_ids'] else []
             db.session.add(tag)
             db.session.commit()
         except sqlalchemy.exc.IntegrityError:

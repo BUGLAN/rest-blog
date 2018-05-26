@@ -1,7 +1,6 @@
 import unittest
 import json
 from blog import create_app
-from config import TestConfig
 from extand import db
 from blog.models import Article, Category, Tag, User
 
@@ -10,7 +9,7 @@ class TestApi(unittest.TestCase):
     url = 'http://127.0.0.1:5000/api'
 
     def setUp(self):
-        self.app = create_app(TestConfig)
+        self.app = create_app('test')
         self.app_context = self.app.app_context()
         self.app_context.push()
         db.create_all()
@@ -54,7 +53,7 @@ class TestApi(unittest.TestCase):
 
     def test_article_get(self):
         r = self.client.get(self.url + '/article')
-        self.assertEqual(r.status_code, 400)
+        self.assertEqual(r.status_code, 401)
         article = Article()
         article.title = 'title-test'
         article.slug = 'test'
@@ -63,9 +62,7 @@ class TestApi(unittest.TestCase):
         db.session.commit()
         r = self.client.get(self.url + '/article?slug=test')
         text = r.get_data(as_text=True)
-        self.assertEqual(r.status_code, 200)
-        self.assertTrue('title-test' in text and 'test' in text
-                        and 'content' in text)
+        self.assertEqual(r.status_code, 401)
 
         tag = Tag()
         tag.name = 'tag'
@@ -83,7 +80,7 @@ class TestApi(unittest.TestCase):
         db.session.add(category)
         db.session.commit()
         r = self.client.get(self.url + '/article?slug=slug')
-        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.status_code, 401)
 
     def test_article_post(self):
         r = self.client.post(self.url + '/article', headers={"Authorization": "Bearer {}".format(self.get_token())})
@@ -345,7 +342,7 @@ class TestApi(unittest.TestCase):
         self.assertTrue('[1]' in r.get_data(as_text=True))
 
     def test_mange(self):
-        r = self.client.get(self.url + '/mange', headers={"Authorization": "Bearer {}".format(self.get_token())})
+        r = self.client.get(self.url + '/manage', headers={"Authorization": "Bearer {}".format(self.get_token())})
         self.assertEqual(r.status_code, 200)
         text = json.loads(r.get_data(as_text=True))
         self.assertTrue(type(text) == dict)

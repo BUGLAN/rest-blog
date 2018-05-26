@@ -1,6 +1,5 @@
 from blog import create_app
-from config import BaseConfig
 
 if __name__ == '__main__':
-    app = create_app(BaseConfig)
+    app = create_app('dev')
     app.run(debug=True)
