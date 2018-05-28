@@ -42,13 +42,12 @@ categories_fields = {
 }
 
 mega_article_fields = {
-        'id': fields.Integer,
-        'title': fields.String,
-        'slug': fields.String,
-        'content': fields.String
-        }
+    'id': fields.Integer,
+    'title': fields.String,
+    'slug': fields.String,
+    'content': fields.String,
+    'date':
+    fields.String(attribute=lambda x: x.create_time.strftime('%Y-%m-%d'))
+}
 
-mega_some_fields = {
-        'id': fields.Integer,
-        'name': fields.String
-        }
+mega_some_fields = {'id': fields.Integer, 'name': fields.String}

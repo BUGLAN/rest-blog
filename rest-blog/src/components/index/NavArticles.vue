@@ -7,7 +7,7 @@
             <router-link :to="{path: '/article/' + item['date'] + '/' + item.slug}">{{item.title}}</router-link>
           </h1>
           <p>{{item['date']}}</p>
-          <div class="content" v-html="item['content']"></div>
+          <div id="content" v-html="item.content" v-highlight></div>
           <br>
         </article>
       </li>
@@ -16,6 +16,8 @@
 </template>
 
 <script>
+    import showdown from 'showdown'
+    import hljs from 'highlight.js'
   export default {
     name: "NavArticles",
     data() {
@@ -27,6 +29,10 @@
       this.$axios.get(process.env.API_HOST + '/api/articles', {params: {page: this.$route.query.page}})
         .then(response => {
           this.items = response.data;
+            let converter = new showdown.Converter();
+            this.items.forEach(item => {
+                item.content = converter.makeHtml(item.content + '...');
+            })
         }).catch(response => {
         alert("出现错误请联系管理员")
       })

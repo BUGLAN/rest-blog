@@ -1,6 +1,6 @@
 <template>
   <footer>
-    @ 2017 BUGLAN
+    © 2017 BUGLAN
   </footer>
 </template>
 

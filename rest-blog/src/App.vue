@@ -1,10 +1,12 @@
 <template>
-  <div>
+    <div>
+  <div class="main">
     <router-view></router-view>
+  </div>
     <keep-alive>
     <Footer></Footer>
     </keep-alive>
-  </div>
+    </div>
 </template>
 
 <script>

@@ -1,4 +1,5 @@
-from .views import ArticleMethods, CategoryMethods, TagMethods, Articles, Categories, Page, Manage, Login, megaTags, megaArticle, UploadImage
+from .views import ArticleMethods, CategoryMethods, TagMethods, Articles, \
+        Categories, Page, Manage, Login, megaTags, megaArticle, UploadImage
 from flask_restful import Api
 from . import api_blueprint
 

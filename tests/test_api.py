@@ -37,14 +37,13 @@ class TestApi(unittest.TestCase):
 
     def get_token(self):
         r = self.client.post(
-                self.url + '/login',
-                data=json.dumps({
-                    'username': 'admin',
-                    'password': '123456'
-                    }), content_type='application/json'
-                )
+            self.url + '/login',
+            data=json.dumps({
+                'username': 'admin',
+                'password': '123456'
+            }),
+            content_type='application/json')
         return json.loads(r.get_data(as_text=True))['token']
-
 
     def tearDown(self):
         db.session.remove()
@@ -61,7 +60,6 @@ class TestApi(unittest.TestCase):
         db.session.add(article)
         db.session.commit()
         r = self.client.get(self.url + '/article?slug=test')
-        text = r.get_data(as_text=True)
         self.assertEqual(r.status_code, 401)
 
         tag = Tag()
@@ -83,7 +81,9 @@ class TestApi(unittest.TestCase):
         self.assertEqual(r.status_code, 401)
 
     def test_article_post(self):
-        r = self.client.post(self.url + '/article', headers={"Authorization": "Bearer {}".format(self.get_token())})
+        r = self.client.post(
+            self.url + '/article',
+            headers={"Authorization": "Bearer {}".format(self.get_token())})
         self.assertEqual(r.status_code, 400)
         r = self.client.post(
             self.url + '/article',
@@ -94,7 +94,8 @@ class TestApi(unittest.TestCase):
                 'category_id': 1,
                 'tag_ids': [1],
             }),
-            content_type='application/json', headers={"Authorization": "Bearer {}".format(self.get_token())})
+            content_type='application/json',
+            headers={"Authorization": "Bearer {}".format(self.get_token())})
         self.assertEqual(r.status_code, 200)
         self.assertTrue('新建文章成功' in r.get_data(as_text=True))
         r = self.client.post(
@@ -106,7 +107,8 @@ class TestApi(unittest.TestCase):
                 'category_id': 1,
                 'tag_ids': [1],
             }),
-            content_type='application/json',  headers={"Authorization": "Bearer {}".format(self.get_token())})
+            content_type='application/json',
+            headers={"Authorization": "Bearer {}".format(self.get_token())})
         self.assertEqual(r.status_code, 400)
         self.assertTrue('字段冲突' in r.get_data(as_text=True))
         r = self.client.post(
@@ -118,7 +120,8 @@ class TestApi(unittest.TestCase):
                 'category_id': 1,
                 'tag_ids': [1],
             }),
-            content_type='application/json',  headers={"Authorization": "Bearer {}".format(self.get_token())})
+            content_type='application/json',
+            headers={"Authorization": "Bearer {}".format(self.get_token())})
         self.assertEqual(r.status_code, 400)
         self.assertTrue('字段冲突' in r.get_data(as_text=True))
 
@@ -132,7 +135,8 @@ class TestApi(unittest.TestCase):
                 'category_id': 1,
                 'tag_ids': [1],
             }),
-            content_type='application/json', headers={"Authorization": "Bearer {}".format(self.get_token())})
+            content_type='application/json',
+            headers={"Authorization": "Bearer {}".format(self.get_token())})
         r = self.client.put(
             self.url + '/article',
             data=json.dumps({
@@ -143,7 +147,8 @@ class TestApi(unittest.TestCase):
                 'category_id': 2,
                 'tag_ids': [1]
             }),
-            content_type='application/json', headers={"Authorization": "Bearer {}".format(self.get_token())})
+            content_type='application/json',
+            headers={"Authorization": "Bearer {}".format(self.get_token())})
         self.assertEqual(r.status_code, 200)
         article = Article()
         article.title = 'x'
@@ -161,7 +166,8 @@ class TestApi(unittest.TestCase):
                 'category_id': 2,
                 'tag_ids': [1]
             }),
-            content_type='application/json', headers={"Authorization": "Bearer {}".format(self.get_token())})
+            content_type='application/json',
+            headers={"Authorization": "Bearer {}".format(self.get_token())})
         self.assertEqual(r.status_code, 200)
         self.assertTrue('修改文章成功' in r.get_data(as_text=True))
         self.assertTrue(Article.query.get(1).title == 'title')
@@ -182,9 +188,12 @@ class TestApi(unittest.TestCase):
                 'category_id': 1,
                 'tag_ids': [1],
             }),
-            content_type='application/json', headers={"Authorization": "Bearer {}".format(self.get_token())})
+            content_type='application/json',
+            headers={"Authorization": "Bearer {}".format(self.get_token())})
         self.assertEqual(r.status_code, 200)
-        r = self.client.delete(self.url + '/article?id=2', headers={"Authorization": "Bearer {}".format(self.get_token())})
+        r = self.client.delete(
+            self.url + '/article?id=2',
+            headers={"Authorization": "Bearer {}".format(self.get_token())})
         self.assertEqual(r.status_code, 200)
         self.assertTrue('删除文章成功' in r.get_data(as_text=True))
 
@@ -205,7 +214,8 @@ class TestApi(unittest.TestCase):
                 'name': 'a',
                 'article_ids': []
             }),
-            content_type='application/json', headers={"Authorization": "Bearer {}".format(self.get_token())})
+            content_type='application/json',
+            headers={"Authorization": "Bearer {}".format(self.get_token())})
         self.assertEqual(r.status_code, 200)
         self.assertTrue(Category.query.get(2).name == 'a')
         r = self.client.post(
@@ -214,7 +224,8 @@ class TestApi(unittest.TestCase):
                 'name': 'b',
                 'article_ids': []
             }),
-            content_type='application/json', headers={"Authorization": "Bearer {}".format(self.get_token())})
+            content_type='application/json',
+            headers={"Authorization": "Bearer {}".format(self.get_token())})
         self.assertTrue(Category.query.get(2).articles == [])
 
     def test_category_put(self):
@@ -229,7 +240,8 @@ class TestApi(unittest.TestCase):
                 'name': 'b',
                 'article_ids': []
             }),
-            content_type='application/json', headers={"Authorization": "Bearer {}".format(self.get_token())})
+            content_type='application/json',
+            headers={"Authorization": "Bearer {}".format(self.get_token())})
         self.assertEqual(r.status_code, 200)
         self.assertTrue(Category.query.get(1).name == 'b')
 
@@ -243,9 +255,10 @@ class TestApi(unittest.TestCase):
             data=json.dumps({
                 'id': 1
             }),
-            content_type='application/json', headers={"Authorization": "Bearer {}".format(self.get_token())})
+            content_type='application/json',
+            headers={"Authorization": "Bearer {}".format(self.get_token())})
         self.assertEqual(r.status_code, 200)
-        self.assertTrue(Category.query.get(1) == None)
+        self.assertTrue(Category.query.get(1) is None)
 
     def test_tag_get(self):
         r = self.client.get(self.url + '/tag?name=a')
@@ -265,7 +278,8 @@ class TestApi(unittest.TestCase):
                 'name': 'a',
                 'article_ids': []
             }),
-            content_type='application/json', headers={"Authorization": "Bearer {}".format(self.get_token())})
+            content_type='application/json',
+            headers={"Authorization": "Bearer {}".format(self.get_token())})
         self.assertEqual(r.status_code, 200)
         r = self.client.post(
             self.url + '/tag',
@@ -273,7 +287,8 @@ class TestApi(unittest.TestCase):
                 'name': 'a',
                 'article_ids': []
             }),
-            content_type='application/json', headers={"Authorization": "Bearer {}".format(self.get_token())})
+            content_type='application/json',
+            headers={"Authorization": "Bearer {}".format(self.get_token())})
         self.assertEqual(r.status_code, 400)
 
     def test_tag_put(self):
@@ -288,7 +303,8 @@ class TestApi(unittest.TestCase):
                 'name': 'b',
                 'article_ids': []
             }),
-            content_type='application/json', headers={"Authorization": "Bearer {}".format(self.get_token())})
+            content_type='application/json',
+            headers={"Authorization": "Bearer {}".format(self.get_token())})
         self.assertEqual(r.status_code, 200)
         self.assertTrue(Tag.query.get(1).name == 'b')
 
@@ -298,7 +314,8 @@ class TestApi(unittest.TestCase):
             data=json.dumps({
                 'id': 2
             }),
-            content_type='application/json', headers={"Authorization": "Bearer {}".format(self.get_token())})
+            content_type='application/json',
+            headers={"Authorization": "Bearer {}".format(self.get_token())})
         self.assertEqual(r.status_code, 404)
         tag = Tag()
         tag.name = 'a'
@@ -309,9 +326,10 @@ class TestApi(unittest.TestCase):
             data=json.dumps({
                 'id': 1
             }),
-            content_type='application/json', headers={"Authorization": "Bearer {}".format(self.get_token())})
+            content_type='application/json',
+            headers={"Authorization": "Bearer {}".format(self.get_token())})
         self.assertEqual(r.status_code, 200)
-        self.assertTrue(Tag.query.get(1) == None)
+        self.assertTrue(Tag.query.get(1) is None)
 
     def test_articles(self):
         article = Article()
@@ -342,18 +360,20 @@ class TestApi(unittest.TestCase):
         self.assertTrue('[1]' in r.get_data(as_text=True))
 
     def test_mange(self):
-        r = self.client.get(self.url + '/manage', headers={"Authorization": "Bearer {}".format(self.get_token())})
+        r = self.client.get(
+            self.url + '/manage',
+            headers={"Authorization": "Bearer {}".format(self.get_token())})
         self.assertEqual(r.status_code, 200)
         text = json.loads(r.get_data(as_text=True))
         self.assertTrue(type(text) == dict)
 
     def test_login(self):
         r = self.client.post(
-                self.url + '/login',
-                data=json.dumps({
-                    'username': 'admin',
-                    'password': '123456'
-                    }), content_type='application/json'
-                )
+            self.url + '/login',
+            data=json.dumps({
+                'username': 'admin',
+                'password': '123456'
+            }),
+            content_type='application/json')
         self.assertEqual(r.status_code, 200)
         self.assertTrue('token' in r.get_data(as_text=True))

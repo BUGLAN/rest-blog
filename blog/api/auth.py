@@ -1,7 +1,6 @@
 from flask_httpauth import HTTPTokenAuth
 from blog.models import User
-from flask import make_response, jsonify, request
-
+from flask import make_response, jsonify
 
 auth = HTTPTokenAuth(scheme='Bearer')
 
@@ -16,4 +15,8 @@ def verify_token(token):
 
 @auth.error_handler
 def unauthorized():
-    return make_response(jsonify({'error': 'Unauthorized', 'status': 401}), 401)
+    return make_response(
+        jsonify({
+            'error': 'Unauthorized',
+            'status': 401
+        }), 401)

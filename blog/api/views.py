@@ -1,9 +1,11 @@
 from extand import db
 from blog.models import Article, Category, Tag, User
-from flask_restful import Resource, marshal_with, fields, reqparse
+from flask_restful import Resource, marshal_with, reqparse
 from flask_sqlalchemy import sqlalchemy
-from flask import current_app, jsonify, make_response, request
-from blog.api.fields import article_category_fields, tags_fields, get_article_fields, get_category_fields, get_tag_fields, articles_fields, categories_fields, mega_article_fields, mega_some_fields
+from flask import current_app, jsonify, make_response, request, abort
+from blog.api.fields import get_article_fields, get_category_fields, \
+        get_tag_fields, articles_fields, categories_fields, \
+        mega_article_fields, mega_some_fields
 from blog.api.auth import auth
 from sqlalchemy import and_
 from datetime import datetime
@@ -100,7 +102,9 @@ class ArticleMethods(Resource):
             article.slug = args['slug']
             article.content = args['content']
             article.category = Category.query.get(args['category_id'])
-            article.tags = [Tag.query.get_or_404(id) for id in args['tag_ids']] if args['tag_ids'] else []
+            article.tags = [
+                Tag.query.get_or_404(id) for id in args['tag_ids']
+            ] if args['tag_ids'] else []
             db.session.add(article)
             db.session.commit()
         except sqlalchemy.exc.IntegrityError:
@@ -123,7 +127,9 @@ class ArticleMethods(Resource):
             article.slug = args['slug']
             article.content = args['content']
             article.category = Category.query.get(args['category_id'])
-            article.tags = [Tag.query.get_or_404(id) for id in args['tag_ids']] if args['tag_ids'] else []
+            article.tags = [
+                Tag.query.get_or_404(id) for id in args['tag_ids']
+            ] if args['tag_ids'] else []
             db.session.add(article)
             db.session.commit()
         except sqlalchemy.exc.IntegrityError:
@@ -278,7 +284,9 @@ class TagMethods(Resource):
         try:
             tag = Tag()
             tag.name = args['name']
-            tag.articles = [Article.query.get_or_404(id) for id in args['article_ids']] if args['article_ids'] else []
+            tag.articles = [
+                Article.query.get_or_404(id) for id in args['article_ids']
+            ] if args['article_ids'] else []
             db.session.add(tag)
             db.session.commit()
         except sqlalchemy.exc.IntegrityError:
@@ -455,7 +463,8 @@ class UploadImage(Resource):
             file.save(os.path.join(path, file.filename))
             return {
                 'url':
-                current_app.config['HOST'] + '/static' + '/images/' + date +  '/' + file.filename,
+                current_app.config['HOST'] + '/static' + '/images/' + date +
+                '/' + file.filename,
                 'status':
                 200
             }

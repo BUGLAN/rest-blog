@@ -1,8 +1,19 @@
+@media(min-width:640px){
 body {
     font-family: "Consolas", "Microsoft YaHei Light", sans-serif;
     font-size: 20px;
     padding: 0 20%;
 }
+}
+
+@media(max-width:640px){
+body {
+    font-family: "Consolas", "Microsoft YaHei Light", sans-serif;
+    font-size: 20px;
+    padding: 0 2.5%;
+}
+}
+
 
 header {
     margin-bottom: 2em;
@@ -81,11 +92,18 @@ section ul {
     padding: 0;
 }
 
+.main{
+    min-height: calc(100vh - 110px);
+}
+
+html,body{overflow:hidden;overflow-y:auto;}
+
 footer {
     margin-top: 2em;
-    padding: 1em 0;
+    padding: 20px 0;
     border-top: 1px solid #000;
-    text-align: center
+    text-align: center;
+    height: 70px;
 }
 
 
