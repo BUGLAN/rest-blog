@@ -19,13 +19,13 @@
 </template>
 
 <script>
-  export default {
+export default {
 
-    name: "NavHeader",
-    data() {
-      return {}
-    }
+  name: "NavHeader",
+  data() {
+    return {}
   }
+}
 </script>
 
 <style scoped>

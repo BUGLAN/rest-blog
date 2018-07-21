@@ -6,13 +6,12 @@
 </template>
 
 <script>
-  import NavHeader from '@/components/index/NavHeader'
+import NavHeader from '@/components/index/NavHeader'
 
-
-  export default {
-    name: "Detail",
-    components: {NavHeader},
-  }
+export default {
+  name: "Detail",
+  components: {NavHeader},
+}
 </script>
 
 <style scoped>

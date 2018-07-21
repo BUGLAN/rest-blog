@@ -1,0 +1,19 @@
+{
+  "tests/test_api.py::TestApi::test_article_delete": true,
+  "tests/test_api.py::TestApi::test_article_get": true,
+  "tests/test_api.py::TestApi::test_article_post": true,
+  "tests/test_api.py::TestApi::test_article_put": true,
+  "tests/test_api.py::TestApi::test_articles": true,
+  "tests/test_api.py::TestApi::test_categories": true,
+  "tests/test_api.py::TestApi::test_category_delete": true,
+  "tests/test_api.py::TestApi::test_category_get": true,
+  "tests/test_api.py::TestApi::test_category_post": true,
+  "tests/test_api.py::TestApi::test_category_put": true,
+  "tests/test_api.py::TestApi::test_login": true,
+  "tests/test_api.py::TestApi::test_mange": true,
+  "tests/test_api.py::TestApi::test_pages": true,
+  "tests/test_api.py::TestApi::test_tag_delete": true,
+  "tests/test_api.py::TestApi::test_tag_get": true,
+  "tests/test_api.py::TestApi::test_tag_post": true,
+  "tests/test_api.py::TestApi::test_tag_put": true
+}

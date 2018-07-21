@@ -31,37 +31,37 @@
 </template>
 
 <script>
-  import NavHeader from '@/components/index/NavHeader'
+import NavHeader from '@/components/index/NavHeader'
 
-  export default {
-    name: "NewTag",
-    data(){
-      return {
-        tag: '',
-        articles: '',
-        check_articles: []
-      }
-    },
-    mounted(){
-      this.$axios.get(process.env.API_HOST + '/api/articles', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+export default {
+  name: "NewTag",
+  data(){
+    return {
+      tag: '',
+      articles: '',
+      check_articles: []
+    }
+  },
+  mounted(){
+    this.$axios.get(process.env.API_HOST + '/api/articles', {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
+      .then(response => {
+        this.articles = response.data
+      })
+  },
+  components: {NavHeader},
+  methods: {
+    submit: function () {
+      this.$axios.post(process.env.API_HOST + '/api/tag', {'name': this.tag, 'article_ids': this.check_articles}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
         .then(response => {
-          this.articles = response.data
+          if (response.status === 200){
+            alert('新建标签成功')
+          }else{
+            alert('新建标签失败, 请重新尝试')
+          }
         })
-    },
-    components: {NavHeader},
-    methods: {
-      submit: function () {
-        this.$axios.post(process.env.API_HOST + '/api/tag', {'name': this.tag, 'article_ids': this.check_articles}, {headers: {'Authorization': 'Bearer '+ this.getCookie('token')}})
-          .then(response => {
-            if (response.status === 200){
-              alert('新建标签成功')
-            }else{
-               alert('新建标签失败, 请重新尝试')
-            }
-          })
-      }
     }
   }
+}
 </script>
 
 <style scoped>

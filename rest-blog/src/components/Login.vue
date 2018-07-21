@@ -26,39 +26,39 @@
 </template>
 
 <script>
-  import NavHeader from '@/components/index/NavHeader'
+import NavHeader from '@/components/index/NavHeader'
 
-  export default {
-    name: "Login",
-    data() {
-      return {
-        username: '',
-        password: ''
-      }
+export default {
+  name: "Login",
+  data() {
+    return {
+      username: '',
+      password: ''
+    }
+  },
+  components: {NavHeader},
+  methods: {
+    submit: function () {
+      this.$axios.post(process.env.API_HOST + '/api/login', {'username': this.username, 'password': this.password})
+        .then(response => {
+          if (response.status === 200){
+            let expireDays = 60 * 60 * 24 * 7;
+            this.setCookie('token', response.data.token, expireDays);
+            this.$router.go(-1)
+          }else{
+            alert('登录失败')
+          }
+        });
+      // let token = 'Bearer ' + this.getCookie('token')
+      // console.log(token)
+      // this.$axios.get('http://127.0.0.1:5000/api/login_test', {headers: {'Authorization': token}})
+      //   .then(response => {
+      //     console.log(response.data)
+      //   })
     },
-    components: {NavHeader},
-    methods: {
-      submit: function () {
-        this.$axios.post(process.env.API_HOST + '/api/login', {'username': this.username, 'password': this.password})
-          .then(response => {
-            if (response.status === 200){
-              let expireDays = 60 * 60 * 24 * 7;
-              this.setCookie('token', response.data.token, expireDays);
-              this.$router.go(-1)
-            }else{
-              alert('登录失败')
-            }
-          });
-        // let token = 'Bearer ' + this.getCookie('token')
-        // console.log(token)
-        // this.$axios.get('http://127.0.0.1:5000/api/login_test', {headers: {'Authorization': token}})
-        //   .then(response => {
-        //     console.log(response.data)
-        //   })
-      },
 
-    },
-  }
+  },
+}
 </script>
 
 <style scoped>

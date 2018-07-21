@@ -6,12 +6,11 @@
 </template>
 
 <script>
-  import NavHeader from '@/components/index/NavHeader'
-
-  export default {
-    name: "BasicManager",
-    components: {NavHeader}
-  }
+import NavHeader from '@/components/index/NavHeader'
+export default {
+  name: "BasicManager",
+  components: {NavHeader}
+}
 </script>
 
 <style scoped>

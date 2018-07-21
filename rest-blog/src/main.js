@@ -9,13 +9,15 @@ import 'highlight.js/styles/github.css'
 
 import Home from '@/components/Home'
 
-import {setMetaTitle} from "./util/setMetaTitle";
+import {
+  setMetaTitle
+} from "./util/setMetaTitle";
 
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 
 Vue.directive('title', {
-  inserted: function (el, binding) {
+  inserted: function(el, binding) {
     setMetaTitle(binding.value)
   }
 })
@@ -49,7 +51,7 @@ Vue.prototype.delCookie = (name) => {
     document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 }
 //     something end
-Vue.directive('highlight', function (el) {
+Vue.directive('highlight', function(el) {
   let blocks = el.querySelectorAll('pre code');
   blocks.forEach((block) => {
     hljs.highlightBlock(block)
@@ -58,21 +60,23 @@ Vue.directive('highlight', function (el) {
 
 // axios 拦截器
 axios.interceptors.response.use(
-    response => {
-        return response;
-    },
-    error => {
-        if (error.response) {
-            if (error.response.status == 401) {
-                    // store.commit(types.LOGOUT);
-                    router.replace({
-                        path: '/login',
-                        query: {redirect: router.currentRoute.fullPath}
-                    })
-            }
-        }
-        return Promise.reject(error.response.data)   // 返回接口返回的错误信息
+  response => {
+    return response;
+  },
+  error => {
+    if (error.response) {
+      if (error.response.status == 401) {
+        // store.commit(types.LOGOUT);
+        router.replace({
+          path: '/login',
+          query: {
+            redirect: router.currentRoute.fullPath
+          }
+        })
+      }
     }
+    return Promise.reject(error.response.data) // 返回接口返回的错误信息
+  }
 );
 
 
@@ -81,7 +85,9 @@ axios.interceptors.response.use(
 new Vue({
   el: '#app',
   router,
-  components: {App},
+  components: {
+    App
+  },
   template: '<App/>',
 
 })
