@@ -1,6 +1,7 @@
+from flask import jsonify, make_response
 from flask_httpauth import HTTPTokenAuth
+
 from blog.models import User
-from flask import make_response, jsonify
 
 auth = HTTPTokenAuth(scheme='Bearer')
 

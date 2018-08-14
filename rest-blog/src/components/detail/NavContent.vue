@@ -27,7 +27,7 @@ export default {
       .then(response => {
         let converter = new showdown.Converter();
         this.item = response.data;
-        this.item.content = converter.makeHtml(this.item.content);
+        //this.item.content = converter.makeHtml(this.item.content);
         document.title = this.item.title + ' | BUGLAN'
       }).catch(response => {
         console.log(response)

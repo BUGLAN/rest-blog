@@ -1,8 +1,9 @@
-import unittest
 import json
+import unittest
+
 from blog import create_app
-from extand import db
 from blog.models import Article, Category, Tag, User
+from extand import db
 
 
 class TestApi(unittest.TestCase):

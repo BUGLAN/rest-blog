@@ -31,7 +31,7 @@ export default {
         this.items = response.data;
         let converter = new showdown.Converter();
         this.items.forEach(item => {
-          item.content = converter.makeHtml(item.content + '...');
+          item.content = converter.makeHtml(item.raw_content + '...');
         })
       }).catch(response => {
         alert("出现错误请联系管理员")

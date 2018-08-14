@@ -1,7 +1,10 @@
-from extand import db
 from datetime import datetime
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer, SignatureExpired, BadSignature
+
 from flask import current_app
+from itsdangerous import BadSignature, SignatureExpired
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+
+from extand import db
 
 
 class User(db.Model):
@@ -39,19 +42,19 @@ class User(db.Model):
 
 
 article_tag = db.Table(
-    'article_tag',
-    db.Column('id', db.Integer, primary_key=True),
+    'article_tag', db.Column('id', db.Integer, primary_key=True),
     db.Column('article_id', db.Integer, db.ForeignKey('article.id')),
-    db.Column('tag_id', db.Integer, db.ForeignKey('tag.id'))
-)
+    db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')))
 
 
 class Article(db.Model):
+    """Article"""
     __tablename__ = 'article'
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(128), unique=True)
     slug = db.Column(db.String(128), unique=True)
+    raw_content = db.Column(db.Text)
     content = db.Column(db.Text)
     create_time = db.Column(db.DateTime)
     update_time = db.Column(db.DateTime)
@@ -60,8 +63,7 @@ class Article(db.Model):
         'Tag',
         secondary=article_tag,
         backref=db.backref('articles', lazy='dynamic'),
-        lazy='dynamic'
-    )
+        lazy='dynamic')
 
     def __init__(self):
         super(Article, self).__init__()

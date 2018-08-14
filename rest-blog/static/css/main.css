@@ -1,17 +1,17 @@
-@media(min-width:640px){
-body {
-    font-family: "Consolas", "Microsoft YaHei Light", sans-serif;
-    font-size: 20px;
-    padding: 0 20%;
-}
+@media(min-width:640px) {
+    body {
+        font-family: "Consolas", "Microsoft YaHei Light", sans-serif;
+        font-size: 20px;
+        padding: 0 20%;
+    }
 }
 
-@media(max-width:640px){
-body {
-    font-family: "Consolas", "Microsoft YaHei Light", sans-serif;
-    font-size: 20px;
-    padding: 0 2.5%;
-}
+@media(max-width:640px) {
+    body {
+        font-family: "Consolas", "Microsoft YaHei Light", sans-serif;
+        font-size: 20px;
+        padding: 0 2.5%;
+    }
 }
 
 
@@ -42,19 +42,22 @@ header li {
     line-height: 1.2em;
     float: left;
 }
+
 header li a {
     font-weight: 200;
     border: 0
 }
 
 
-
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     color: #222;
     text-align: left;
 }
 
-a, a:visited {
+a,
+a:visited {
     color: #444;
     text-decoration: none;
     border-bottom: 1px dashed #eec0db;
@@ -66,15 +69,18 @@ a:hover {
     border-bottom: 1px dashed #222222;
 }
 
-header ul li a, a:hover {
+header ul li a,
+a:hover {
     border-bottom: none;
 }
 
-.container, header {
+.container,
+header {
     width: 100%
 }
 
-.container:after, header:after {
+.container:after,
+header:after {
     content: " ";
     display: block;
     clear: both
@@ -92,11 +98,15 @@ section ul {
     padding: 0;
 }
 
-.main{
+.main {
     min-height: calc(100vh - 110px);
 }
 
-html,body{overflow:hidden;overflow-y:auto;}
+html,
+body {
+    overflow: hidden;
+    overflow-y: auto;
+}
 
 footer {
     margin-top: 2em;
@@ -105,5 +115,4 @@ footer {
     text-align: center;
     height: 70px;
 }
-
 

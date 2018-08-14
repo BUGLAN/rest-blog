@@ -1,7 +1,9 @@
-from .views import ArticleMethods, CategoryMethods, TagMethods, Articles, \
-        Categories, Page, Manage, Login, megaTags, megaArticle, UploadImage
 from flask_restful import Api
+
 from . import api_blueprint
+from .views import (ArticleMethods, Articles, Categories, CategoryMethods,
+                    Login, Manage, Page, TagMethods, UploadImage, megaArticle,
+                    megaTags)
 
 api = Api(api_blueprint)
 

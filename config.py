@@ -3,7 +3,7 @@ import os
 
 class BaseConfig:
     SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:root@127.0.0.1: \
-            3306/restblog?charset=utf8'
+            3306/rest?charset=utf8'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     PAGE_ITEMS = 10
     UPLOAD_FOLDER = os.path.join(os.getcwd(), 'dist', 'static', 'images')

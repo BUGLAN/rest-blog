@@ -275,7 +275,7 @@ def new_article():
         article.slug = slug
         try:
             article.category = Category.query.get(category_id)
-        except:
+        except Exception:
             pass
         article.tags = [Tag.query.get(int(id)) for id in tag_ids]
         article.content = content

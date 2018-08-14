@@ -37,7 +37,7 @@
     </table>
     <br>
     <div>
-      <mavon-editor ref=md v-model="article.content" :toolbars="toolbars" @save="$save"
+      <mavon-editor ref=md v-model="article.raw_content" :toolbars="toolbars" @save="$save"
                            @imgAdd="$imgAdd"></mavon-editor>
     </div>
 

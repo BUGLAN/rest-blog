@@ -1,15 +1,18 @@
-from extand import db
-from blog.models import Article, Category, Tag, User
+import os
+from datetime import datetime
+
+from flask import abort, current_app, jsonify, make_response, request
 from flask_restful import Resource, marshal_with, reqparse
 from flask_sqlalchemy import sqlalchemy
-from flask import current_app, jsonify, make_response, request, abort
-from blog.api.fields import get_article_fields, get_category_fields, \
-        get_tag_fields, articles_fields, categories_fields, \
-        mega_article_fields, mega_some_fields
-from blog.api.auth import auth
 from sqlalchemy import and_
-from datetime import datetime
-import os
+
+import markdown
+from blog.api.auth import auth
+from blog.api.fields import (
+    articles_fields, categories_fields, get_article_fields,
+    get_category_fields, get_tag_fields, mega_article_fields, mega_some_fields)
+from blog.models import Article, Category, Tag, User
+from extand import db
 
 
 def blank_and_int(value, name):
@@ -100,7 +103,15 @@ class ArticleMethods(Resource):
             article = Article()
             article.title = args['title']
             article.slug = args['slug']
-            article.content = args['content']
+            # raw_content -> html
+            article.raw_content = args['content']
+            article.content = markdown.markdown(
+                article.raw_content,
+                extensions=[
+                    'markdown.extensions.extra',
+                    'markdown.extensions.codehilite',
+                    'markdown.extensions.toc',
+                ])
             article.category = Category.query.get(args['category_id'])
             article.tags = [
                 Tag.query.get_or_404(id) for id in args['tag_ids']
@@ -125,7 +136,15 @@ class ArticleMethods(Resource):
         try:
             article.title = args['title']
             article.slug = args['slug']
-            article.content = args['content']
+            article.raw_content = args['content']
+            article.content = markdown.markdown(
+                article.raw_content,
+                extensions=[
+                    'markdown.extensions.extra',
+                    'markdown.extensions.codehilite',
+                    'markdown.extensions.toc',
+                ])
+            article.category = Category.query.get(args['category_id'])
             article.category = Category.query.get(args['category_id'])
             article.tags = [
                 Tag.query.get_or_404(id) for id in args['tag_ids']

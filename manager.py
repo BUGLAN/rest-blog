@@ -3,10 +3,9 @@ from flask_script import Server, Manager
 
 from blog import create_app
 from blog.models import Article, User, Category, Tag, article_tag
-from config import BaseConfig
 from extand import db
 
-app = create_app(BaseConfig)
+app = create_app('dev')
 
 migrate = Migrate(app, db)
 manager = Manager(app)
