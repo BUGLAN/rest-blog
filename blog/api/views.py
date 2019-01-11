@@ -23,82 +23,47 @@ def blank_and_int(value, name):
 
 
 class ArticleMethods(Resource):
-    def __init__(self):
-        self.get_parser = reqparse.RequestParser()
-        self.get_parser.add_argument(
-            'slug',
-            type=str,
-            required=True,
-            help='the argument cannot be blank')
-        self.post_parser = reqparse.RequestParser()
-        self.post_parser.add_argument(
-            'slug',
-            type=str,
-            required=True,
-            help='the argument cannot be blank')
-        self.post_parser.add_argument(
-            'title',
-            type=str,
-            required=True,
-            help='the argument cannot be blank')
-        self.post_parser.add_argument(
-            'content',
-            type=str,
-            required=True,
-            help='the argument cannot be blank')
-        self.post_parser.add_argument(
-            'category_id',
-            type=blank_and_int,
-            help='the argument cannot be blank')
-        self.post_parser.add_argument(
-            'tag_ids',
-            type=int,
-            action='append',
-            help='the argument cannot be blank')
-
-        self.put_parser = reqparse.RequestParser()
-        self.put_parser.add_argument(
-            'id', type=int, required=True, help='the argument cannot be blank')
-
-        self.put_parser.add_argument(
-            'slug',
-            type=str,
-            required=True,
-            help='the argument cannot be blank')
-        self.put_parser.add_argument(
-            'title',
-            type=str,
-            required=True,
-            help='the argument cannot be blank')
-        self.put_parser.add_argument(
-            'content',
-            type=str,
-            required=True,
-            help='the argument cannot be blank')
-        self.put_parser.add_argument(
-            'category_id',
-            type=blank_and_int,
-            help='the argument cannot be blank')
-        self.put_parser.add_argument(
-            'tag_ids',
-            type=int,
-            action='append',
-            help='the argument cannot be blank')
-
-        self.delete_parser = reqparse.RequestParser()
-        self.delete_parser.add_argument(
-            'id', type=int, required=True, help='the argument cannot be blank')
-
     @auth.login_required
     @marshal_with(get_article_fields)
     def get(self):
-        args = self.get_parser.parse_args()
+        get_parser = reqparse.RequestParser()
+        get_parser.add_argument(
+            'slug',
+            type=str,
+            required=True,
+            help='the argument cannot be blank')
+        args = get_parser.parse_args()
         article = Article.query.filter_by(slug=args['slug']).first_or_404()
         return article
 
     @auth.login_required
     def post(self):
-        args = self.post_parser.parse_args()
+        post_parser = reqparse.RequestParser()
+        post_parser.add_argument(
+            'slug',
+            type=str,
+            required=True,
+            help='the argument cannot be blank')
+        post_parser.add_argument(
+            'title',
+            type=str,
+            required=True,
+            help='the argument cannot be blank')
+        post_parser.add_argument(
+            'content',
+            type=str,
+            required=True,
+            help='the argument cannot be blank')
+        post_parser.add_argument(
+            'category_id',
+            type=blank_and_int,
+            help='the argument cannot be blank')
+        post_parser.add_argument(
+            'tag_ids',
+            type=int,
+            action='append',
+            help='the argument cannot be blank')
+        args = post_parser.parse_args()
         try:
             article = Article()
             article.title = args['title']
@@ -131,7 +96,35 @@ class ArticleMethods(Resource):
 
     @auth.login_required
     def put(self):
-        args = self.put_parser.parse_args()
+        put_parser = reqparse.RequestParser()
+        put_parser.add_argument(
+            'id', type=int, required=True, help='the argument cannot be blank')
+
+        put_parser.add_argument(
+            'slug',
+            type=str,
+            required=True,
+            help='the argument cannot be blank')
+        put_parser.add_argument(
+            'title',
+            type=str,
+            required=True,
+            help='the argument cannot be blank')
+        put_parser.add_argument(
+            'content',
+            type=str,
+            required=True,
+            help='the argument cannot be blank')
+        put_parser.add_argument(
+            'category_id',
+            type=blank_and_int,
+            help='the argument cannot be blank')
+        put_parser.add_argument(
+            'tag_ids',
+            type=int,
+            action='append',
+            help='the argument cannot be blank')
+        args = put_parser.parse_args()
         article = Article.query.get_or_404(args['id'])
         try:
             article.title = args['title']
@@ -159,7 +152,10 @@ class ArticleMethods(Resource):
 
     @auth.login_required
     def delete(self):
-        args = self.delete_parser.parse_args()
+        delete_parser = reqparse.RequestParser()
+        delete_parser.add_argument(
+            'id', type=int, required=True, help='the argument cannot be blank')
+        args = delete_parser.parse_args()
         article = Article.query.get_or_404(args['id'])
         db.session.delete(article)
         db.session.commit()
@@ -172,47 +168,32 @@ class ArticleMethods(Resource):
 
 
 class CategoryMethods(Resource):
-    def __init__(self):
-        self.get_parser = reqparse.RequestParser()
-        self.get_parser.add_argument(
-            'name',
-            type=str,
-            required=True,
-            help='the argument cannot be blank')
-        self.post_parser = reqparse.RequestParser()
-        self.post_parser.add_argument(
-            'name',
-            type=str,
-            required=True,
-            help='the argument cannot be blank')
-        self.post_parser.add_argument(
-            'article_ids',
-            type=int,
-            action='append',
-            help='the argument cannot be blank')
-
-        self.put_parser = reqparse.RequestParser()
-        self.put_parser.add_argument(
-            'id', type=int, required=True, help='the argument cannot be blank')
-        self.put_parser.add_argument(
-            'name',
-            type=str,
-            required=True,
-            help='the argument cannot be blank')
-
-        self.delete_parser = reqparse.RequestParser()
-        self.delete_parser.add_argument(
-            'id', type=int, required=True, help='the argument cannot be blank')
-
     @marshal_with(get_category_fields)
     def get(self):
-        args = self.get_parser.parse_args()
+        get_parser = reqparse.RequestParser()
+        get_parser.add_argument(
+            'name',
+            type=str,
+            required=True,
+            help='the argument cannot be blank')
+        args = get_parser.parse_args()
         category = Category.query.filter_by(name=args['name']).first_or_404()
         return category
 
     @auth.login_required
     def post(self):
-        args = self.post_parser.parse_args()
+        post_parser = reqparse.RequestParser()
+        post_parser.add_argument(
+            'name',
+            type=str,
+            required=True,
+            help='the argument cannot be blank')
+        post_parser.add_argument(
+            'article_ids',
+            type=int,
+            action='append',
+            help='the argument cannot be blank')
+        args = post_parser.parse_args()
         try:
             category = Category()
             category.name = args['name']
@@ -231,7 +212,15 @@ class CategoryMethods(Resource):
 
     @auth.login_required
     def put(self):
-        args = self.put_parser.parse_args()
+        put_parser = reqparse.RequestParser()
+        put_parser.add_argument(
+            'id', type=int, required=True, help='the argument cannot be blank')
+        put_parser.add_argument(
+            'name',
+            type=str,
+            required=True,
+            help='the argument cannot be blank')
+        args = put_parser.parse_args()
         category = Category.query.get_or_404(args['id'])
         try:
             category.name = args['name']
@@ -245,7 +234,10 @@ class CategoryMethods(Resource):
 
     @auth.login_required
     def delete(self):
-        args = self.delete_parser.parse_args()
+        delete_parser = reqparse.RequestParser()
+        delete_parser.add_argument(
+            'id', type=int, required=True, help='the argument cannot be blank')
+        args = delete_parser.parse_args()
         category = Category.query.get_or_404(args['id'])
         db.session.delete(category)
         db.session.commit()
@@ -258,48 +250,32 @@ class CategoryMethods(Resource):
 
 
 class TagMethods(Resource):
-    def __init__(self):
-        self.get_parser = reqparse.RequestParser()
-        self.get_parser.add_argument(
-            'name',
-            type=str,
-            required=True,
-            help='the argument cannot be blank')
-
-        self.post_parser = reqparse.RequestParser()
-        self.post_parser.add_argument(
-            'name',
-            type=str,
-            required=True,
-            help='the argument cannot be blank')
-        self.post_parser.add_argument(
-            'article_ids',
-            type=int,
-            action='append',
-            help='the argument cannot be blank')
-
-        self.put_parser = reqparse.RequestParser()
-        self.put_parser.add_argument(
-            'id', type=int, required=True, help='the argument cannot be blank')
-        self.put_parser.add_argument(
-            'name',
-            type=str,
-            required=True,
-            help='the argument cannot be blank')
-
-        self.delete_parser = reqparse.RequestParser()
-        self.delete_parser.add_argument(
-            'id', type=int, required=True, help='the argument cannot be blank')
-
     @marshal_with(get_tag_fields)
     def get(self):
-        args = self.get_parser.parse_args()
+        get_parser = reqparse.RequestParser()
+        get_parser.add_argument(
+            'name',
+            type=str,
+            required=True,
+            help='the argument cannot be blank')
+        args = get_parser.parse_args()
         tag = Tag.query.filter_by(name=args['name']).first_or_404()
         return tag
 
     @auth.login_required
     def post(self):
-        args = self.post_parser.parse_args()
+        post_parser = reqparse.RequestParser()
+        post_parser.add_argument(
+            'name',
+            type=str,
+            required=True,
+            help='the argument cannot be blank')
+        post_parser.add_argument(
+            'article_ids',
+            type=int,
+            action='append',
+            help='the argument cannot be blank')
+        args = post_parser.parse_args()
         try:
             tag = Tag()
             tag.name = args['name']
@@ -318,7 +294,15 @@ class TagMethods(Resource):
 
     @auth.login_required
     def put(self):
-        args = self.put_parser.parse_args()
+        put_parser = reqparse.RequestParser()
+        put_parser.add_argument(
+            'id', type=int, required=True, help='the argument cannot be blank')
+        put_parser.add_argument(
+            'name',
+            type=str,
+            required=True,
+            help='the argument cannot be blank')
+        args = put_parser.parse_args()
         tag = Tag.query.get_or_404(args['id'])
         try:
             tag.name = args['name']
@@ -334,7 +318,10 @@ class TagMethods(Resource):
 
     @auth.login_required
     def delete(self):
-        args = self.delete_parser.parse_args()
+        delete_parser = reqparse.RequestParser()
+        delete_parser.add_argument(
+            'id', type=int, required=True, help='the argument cannot be blank')
+        args = delete_parser.parse_args()
         tag = Tag.query.get_or_404(args['id'])
         db.session.delete(tag)
         db.session.commit()
@@ -347,16 +334,14 @@ class TagMethods(Resource):
 
 
 class Articles(Resource):
-    def __init__(self):
-        self.parser = reqparse.RequestParser()
-        self.parser.add_argument(
+    @marshal_with(articles_fields)
+    def get(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument(
             'page',
             type=int,
         )
-
-    @marshal_with(articles_fields)
-    def get(self):
-        args = self.parser.parse_args()
+        args = parser.parse_args()
         page = args['page'] or 1
         items = current_app.config['PAGE_ITEMS']
         paginaton = Article.query.order_by(

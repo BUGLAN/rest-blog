@@ -4,3 +4,6 @@ migrations
 node_module
 .pytest_cache
 migrations
+
+
+*.sql
