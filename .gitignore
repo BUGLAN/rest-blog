@@ -1,9 +1,18 @@
-__pycache__
+# python files
+__pycache__/
 .py[cod]
-migrations
-node_module
-.pytest_cache
-migrations
+migrations/
+node_module/
+.pytest_cache/
+.mypy_cache/
 
 
+
+# ide/edit file
+.idea/
+.vscode/
+
+
+# project file
 *.sql
+*.db
