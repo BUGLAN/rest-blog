@@ -1,5 +1,5 @@
 <template>
-  <div v-title="title">
+  <div>
     <keep-alive>
       <NavHeader></NavHeader>
     </keep-alive>
@@ -17,7 +17,6 @@ export default {
   components: { NavHeader, NavFooter },
   data () {
     return {
-      'title': '首页 | BUGLAN的个人小站'
     }
   }
 }
