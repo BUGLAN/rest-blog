@@ -1,24 +1,18 @@
 <template>
-  <nav>
-    <h1>
-      <router-link v-for="page in pages" :key="page" :to="{path: '/', query: {page: page}}" >{{page}} </router-link>
-    </h1>
-  </nav>
+  <div>
+    <NavHeader></NavHeader>
+    <Msg></Msg>
+  </div>
 </template>
 
 <script>
+import NavHeader from '@/components/NavHeader'
+import Msg from '@/components/Msg'
+
 export default {
-  name: 'NavFooter',
-  data () {
-    return {
-      pages: []
-    }
-  },
-  mounted () {
-    this.$axios.get(process.env.API_HOST + '/api/pages')
-      .then(response => {
-        this.pages = response.data['pages']
-      })
+  name: 'About',
+  components: {
+    NavHeader, Msg
   }
 }
 </script>
