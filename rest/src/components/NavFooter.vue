@@ -15,7 +15,7 @@ export default {
     }
   },
   mounted () {
-    this.$axios.get(process.env.API_HOST + '/api/pages')
+    this.$axios.get('/api/pages')
       .then(response => {
         this.pages = response.data['pages']
       })

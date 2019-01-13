@@ -7,6 +7,8 @@ import axios from 'axios'
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 
+axios.defaults.baseURL = process.env.VUE_APP_API_HOST
+
 new Vue({
   router,
   store,
