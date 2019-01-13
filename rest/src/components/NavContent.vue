@@ -22,7 +22,7 @@ export default {
     return { item: [] }
   },
   mounted () {
-    this.$axios.get(process.env.API_HOST + '/api/mega_article', { params: { slug: this.$route.params.name } })
+    this.$axios.get('/api/mega_article', { params: { slug: this.$route.params.name } })
       .then(response => {
         // let converter = new showdown.Converter()
         this.item = response.data

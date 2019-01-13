@@ -30,7 +30,7 @@ export default {
   },
   mounted () {
     this.name = this.$route.params.name
-    this.$axios.get(process.env.API_HOST + '/api/category', { params: { 'name': this.$route.params.name } }, { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
+    this.$axios.get('/api/category', { params: { 'name': this.$route.params.name } }, { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
       .then(response => {
         this.category_id = response.data.id
         document.title = '编辑 ' + this.name + ' | BUGLAN'
@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     submit: function () {
-      this.$axios.put(process.env.API_HOST + '/api/category', { 'id': this.category_id, 'name': this.name }, { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
+      this.$axios.put('/api/category', { 'id': this.category_id, 'name': this.name }, { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
         .then(response => {
           if (response.status === 200) {
             alert('修改成功')

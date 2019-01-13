@@ -26,7 +26,7 @@ export default {
   },
   mounted () {
     this.name = this.$route.params.name
-    this.$axios.get(process.env.API_HOST + '/api/tag', { params: { 'name': this.name } }, { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
+    this.$axios.get('/api/tag', { params: { 'name': this.name } }, { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
       .then(response => {
         this.tag_id = response.data.id
         document.title = '编辑 ' + this.name + ' | BUGLAN'
@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     submit: function () {
-      this.$axios.put(process.env.API_HOST + '/api/tag', { 'id': this.tag_id, 'name': this.name }, { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
+      this.$axios.put('/api/tag', { 'id': this.tag_id, 'name': this.name }, { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
         .then(response => {
           if (response.status === 200) {
             alert('修改成功')

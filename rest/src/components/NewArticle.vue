@@ -82,18 +82,18 @@ export default {
   },
   components: { NavHeader },
   mounted () {
-    this.$axios.get(process.env.API_HOST + '/api/categories', { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
+    this.$axios.get('/api/categories', { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
       .then(response => {
         this.categories = response.data
       })
-    this.$axios.get(process.env.API_HOST + '/api/tags', { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
+    this.$axios.get('/api/tags', { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
       .then(response => {
         this.tags = response.data
       })
   },
   methods: {
     $save (content, render) {
-      this.$axios.post(process.env.API_HOST + '/api/article', {
+      this.$axios.post('/api/article', {
         'title': this.title,
         'content': content,
         'slug': this.slug,

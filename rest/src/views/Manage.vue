@@ -101,7 +101,7 @@ export default {
     }
   },
   mounted () {
-    this.$axios.get(process.env.API_HOST + '/api/manage', { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
+    this.$axios.get('/api/manage', { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
       .then(response => {
         this.manage = response.data.manage
         document.title = 'Manage | BUGLAN'
@@ -109,7 +109,7 @@ export default {
   },
   methods: {
     article_delete: function (id) {
-      this.$axios.delete(process.env.API_HOST + '/api/article?id=' + id, { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
+      this.$axios.delete('/api/article?id=' + id, { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
         .then(response => {
           if (response.status === 200) {
             alert('删除成功')
@@ -118,7 +118,7 @@ export default {
         })
     },
     category_delete: function (id) {
-      this.$axios.delete(process.env.API_HOST + '/api/category?id=' + id, { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
+      this.$axios.delete('/api/category?id=' + id, { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
         .then(response => {
           if (response.status === 200) {
             alert('删除成功')
@@ -127,7 +127,7 @@ export default {
         })
     },
     tag_delete: function (id) {
-      this.$axios.delete(process.env.API_HOST + '/api/tag?id=' + id, { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
+      this.$axios.delete('/api/tag?id=' + id, { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
         .then(response => {
           if (response.status === 200) {
             alert('删除成功')

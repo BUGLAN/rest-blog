@@ -89,7 +89,7 @@ export default {
     }
   },
   mounted () {
-    this.$axios.get(process.env.API_HOST + '/api/article?slug=' + this.$route.params.name, { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
+    this.$axios.get('/api/article?slug=' + this.$route.params.name, { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
       .then(response => {
         this.article = response.data
         this.check_category = this.article.category.id
@@ -99,18 +99,18 @@ export default {
         // let converter = new showdown.Converter()
         // this.content = converter.makeHtml(response.data.article.content)
       })
-    this.$axios.get(process.env.API_HOST + '/api/tags', { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
+    this.$axios.get('/api/tags', { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
       .then(response => {
         this.tags = response.data
       })
-    this.$axios.get(process.env.API_HOST + '/api/categories', { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
+    this.$axios.get('/api/categories', { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
       .then(response => {
         this.categories = response.data
       })
   },
   methods: {
     $save (content, render) {
-      this.$axios.put(process.env.API_HOST + '/api/article', {
+      this.$axios.put('/api/article', {
         title: this.article.title,
         content: content,
         slug: this.article.slug,
@@ -131,7 +131,7 @@ export default {
       let formdata = new FormData()
       formdata.append('image', $file)
       this.$axios({
-        url: process.env.API_HOST + '/api/upload_image',
+        url: '/api/upload_image',
         method: 'post',
         data: formdata,
         headers: { 'Content-Type': 'multipart/form-data', 'Authorization': 'Bearer ' + this.getCookie('token') }

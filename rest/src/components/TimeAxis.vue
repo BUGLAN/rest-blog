@@ -22,7 +22,7 @@ export default {
     }
   },
   mounted () {
-    this.$axios.get(process.env.API_HOST + '/api/categories')
+    this.$axios.get('/api/categories')
       .then(response => {
         this.items = response.data
         document.title = 'TimeAxis | BUGLAN'

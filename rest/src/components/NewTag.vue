@@ -43,7 +43,7 @@ export default {
     }
   },
   mounted () {
-    this.$axios.get(process.env.API_HOST + '/api/articles', { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
+    this.$axios.get('/api/articles', { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
       .then(response => {
         this.articles = response.data
       })
@@ -51,7 +51,7 @@ export default {
   components: { NavHeader },
   methods: {
     submit: function () {
-      this.$axios.post(process.env.API_HOST + '/api/tag', { 'name': this.tag, 'article_ids': this.check_articles }, { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
+      this.$axios.post('/api/tag', { 'name': this.tag, 'article_ids': this.check_articles }, { headers: { 'Authorization': 'Bearer ' + this.getCookie('token') } })
         .then(response => {
           if (response.status === 200) {
             alert('新建标签成功')

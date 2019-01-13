@@ -25,7 +25,7 @@ export default {
     }
   },
   mounted () {
-    this.$axios.get(process.env.API_HOST + '/api/articles', { params: { page: this.$route.query.page } })
+    this.$axios.get('/api/articles', { params: { page: this.$route.query.page } })
       .then(response => {
         this.items = response.data
         let converter = new showdown.Converter()
@@ -38,7 +38,7 @@ export default {
   },
   watch: {
     '$route' (to, from) {
-      this.$axios.get(process.env.API_HOST + '/api/articles', { params: { page: this.$route.query.page } })
+      this.$axios.get('/api/articles', { params: { page: this.$route.query.page } })
         .then(response => {
           this.items = response.data
         })

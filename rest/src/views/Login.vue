@@ -39,7 +39,7 @@ export default {
   components: { NavHeader },
   methods: {
     submit: function () {
-      this.$axios.post(process.env.API_HOST + '/api/login', { 'username': this.username, 'password': this.password })
+      this.$axios.post('/api/login', { 'username': this.username, 'password': this.password })
         .then(response => {
           if (response.status === 200) {
             let expireDays = 60 * 60 * 24 * 7
