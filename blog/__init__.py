@@ -1,15 +1,26 @@
 from flask import Flask
-from extand import db
 from flask_cors import CORS
+
 from config import config
+from extand import db
+import pymysql
+
+
+def init_db():
+    # create database if not exits && create all the table
+    pass
 
 
 def create_app(config_name):
+
     app = Flask(
         __name__, static_folder='../dist/static', template_folder='../dist')
     app.config.from_object(config[config_name])
     db.init_app(app)
     CORS(app)
+
+    app.before_first_request(init_db)
+
     # 相关配置
     # 相关路由
     #  from blog.main.views import m

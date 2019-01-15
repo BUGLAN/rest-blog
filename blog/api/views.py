@@ -1,16 +1,17 @@
 import os
 from datetime import datetime
 
+import markdown
 from flask import abort, current_app, jsonify, make_response, request
 from flask_restful import Resource, marshal_with, reqparse
 from flask_sqlalchemy import sqlalchemy
 from sqlalchemy import and_
 
-import markdown
 from blog.api.auth import auth
-from blog.api.fields import (
-    articles_fields, categories_fields, get_article_fields,
-    get_category_fields, get_tag_fields, mega_article_fields, mega_some_fields)
+from blog.api.fields import (articles_fields, categories_fields,
+                             get_article_fields, get_category_fields,
+                             get_tag_fields, mega_article_fields,
+                             mega_some_fields)
 from blog.models import Article, Category, Tag, User
 from extand import db
 
