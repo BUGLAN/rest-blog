@@ -8,7 +8,10 @@ import pymysql
 
 def init_db():
     # create database if not exits && create all the table
-    pass
+    conn = pymysql.connect(host='127.0.0.1', user='root', password='root')
+    conn.cursor().execute('CREATE DATABASE IF NOT EXISTS rest')
+    conn.close()
+    db.create_all()
 
 
 def create_app(config_name):
@@ -21,8 +24,7 @@ def create_app(config_name):
 
     app.before_first_request(init_db)
 
-    # 相关配置
-    # 相关路由
+    # 相关配置 相关路由
     #  from blog.main.views import m
     #  app.register_blueprint(m, url_prefix='/api')
     from blog.api.urls import api_blueprint

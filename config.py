@@ -2,7 +2,7 @@ import os
 
 
 class BaseConfig:
-    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:root@127.0.0.1: \
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:root@127.0.0.1: \
             3306/rest?charset=utf8'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     PAGE_ITEMS = 10

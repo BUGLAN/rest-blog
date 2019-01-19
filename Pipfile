@@ -5,6 +5,9 @@ verify_ssl = true
 
 [dev-packages]
 pytest = "*"
+flake8 = "*"
+autopep8 = "*"
+yapf = "*"
 
 [packages]
 flask = "*"
@@ -13,6 +16,7 @@ flask-restful = "*"
 markdown = "*"
 flask-sqlalchemy = "*"
 flask-httpauth = "*"
+pymysql = "*"
 
 [requires]
 python_version = "3.7"

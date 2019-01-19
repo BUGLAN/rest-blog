@@ -1,5 +1,5 @@
 <template>
-  <div v-title="title">
+  <div>
     <p>这里是buglan的个人博客, 分享有趣的事</p>
     <p>联系方式: </p>
     <p>qq: 1831353087</p>
@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'About',
+  name: 'Msg',
   data () {
     return { 'title': 'About | BUGLAN' }
   }

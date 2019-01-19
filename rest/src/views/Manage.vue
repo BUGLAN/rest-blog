@@ -1,7 +1,6 @@
 
 <template>
   <div>
-    <NavHeader></NavHeader>
     <!-- article -->
     <h1>
       <router-link :to="{path: '/new_article'}">Article</router-link>
@@ -90,11 +89,10 @@
 </template>
 
 <script>
-import NavHeader from '@/components/NavHeader'
 
 export default {
   name: 'Manage',
-  components: { NavHeader },
+  components: {},
   data () {
     return {
       manage: []
