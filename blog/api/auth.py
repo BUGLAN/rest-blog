@@ -9,7 +9,7 @@ auth = HTTPTokenAuth(scheme='Bearer')
 @auth.verify_token
 def verify_token(token):
     user = User.verify_auth_token(token)
-    if user or token == '1':
+    if user:
         return True
     return False
 

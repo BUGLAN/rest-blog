@@ -28,22 +28,32 @@ Vue.directive('title', {
     setMetaTitle(binding.value)
   }
 })
-
-Vue.prototype.setCookie = (Cname, value, expiredays) => {
-  var exdate = new Date()
-  exdate.setDate(exdate.getDate() + expiredays)
-  document.cookie = Cname + '=' + escape(value) + ((expiredays == null) ? '' : ';expires=' + exdate.toGMTString())
+Vue.prototype.setCookie = function (name, value, day) {
+  if (day !== 0) { // 当设置的时间等于0时，不设置expires属性，cookie在浏览器关闭后删除
+    var curDate = new Date()
+    var curTamp = curDate.getTime()
+    var curWeeHours = new Date(curDate.toLocaleDateString()).getTime() - 1
+    var passedTamp = curTamp - curWeeHours
+    var leftTamp = 24 * 60 * 60 * 1000 - passedTamp
+    var leftTime = new Date()
+    leftTime.setTime(leftTamp + curTamp)
+    document.cookie = name + '=' + escape(value) + ';expires=' + leftTime.toGMTString()
+  } else {
+    document.cookie = name + '=' + escape(value)
+  }
 }
 
-function getCookie (name) {
-  var arr
-  var reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)')
-  if (arr === document.cookie.match(reg)) {
-    return (arr[2])
-  } else { return null }
+Vue.prototype.getCookie = function (cname) {
+  var name = cname + '='
+  var ca = document.cookie.split(';')
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i]
+    while (c.charAt(0) === ' ') c = c.substring(1)
+    if (c.indexOf(name) !== -1) return c.substring(name.length, c.length)
+  }
+  return ''
 }
 
-Vue.prototype.getCookie = getCookie
 // axios 拦截器
 axios.interceptors.response.use(
   response => {
