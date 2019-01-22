@@ -17,6 +17,7 @@ markdown = "*"
 flask-sqlalchemy = "*"
 flask-httpauth = "*"
 pymysql = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.7"

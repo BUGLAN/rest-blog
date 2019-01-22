@@ -1,0 +1,12 @@
+# python files
+*.py[code]
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+
+# editor files
+.vscode/
+.idea/
+
+# node files
+node_modules/
