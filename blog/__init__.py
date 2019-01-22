@@ -8,7 +8,7 @@ import pymysql
 
 def init_db():
     # create database if not exits && create all the table
-    conn = pymysql.connect(host='127.0.0.1', user='root', password='root')
+    conn = pymysql.connect(host='mysql', user='root', password='root')
     conn.cursor().execute('CREATE DATABASE IF NOT EXISTS rest')
     conn.close()
     db.create_all()
