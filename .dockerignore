@@ -10,3 +10,7 @@ __pycache__/
 
 # node files
 node_modules/
+
+# data
+nginx-data/
+mysql-data/

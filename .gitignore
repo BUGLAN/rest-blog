@@ -16,3 +16,7 @@ node_module/
 # project file
 *.sql
 *.db
+
+# docker data
+nginx-data/
+mysql-data/

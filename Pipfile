@@ -18,6 +18,7 @@ flask-sqlalchemy = "*"
 flask-httpauth = "*"
 pymysql = "*"
 python-dotenv = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
