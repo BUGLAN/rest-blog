@@ -2,7 +2,6 @@
 __pycache__/
 .py[cod]
 migrations/
-node_module/
 .pytest_cache/
 .mypy_cache/
 
@@ -20,3 +19,7 @@ node_module/
 # docker data
 nginx-data/
 mysql-data/
+
+# vue files
+node_module/
+dist/
