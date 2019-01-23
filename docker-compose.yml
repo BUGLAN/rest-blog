@@ -7,7 +7,7 @@ services:
       - '5000:5000'
     links:
       - mysql
-    command: pipenv run gunicorn -w4 -b 0.0.0.0:5000 wsgi:app
+    command: pipenv run flask run
   front:
     build: ./rest
     restart: always
