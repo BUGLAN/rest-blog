@@ -3,11 +3,11 @@ services:
   flask:
     restart: always
     build: .
-    ports:
-      - '5000:5000'
+    expose:
+      - '5000'
     links:
       - mysql
-    command: pipenv run flask run
+    command: pipenv run gunicorn -w 4 -b 0.0.0.0:5000 wsgi:app
   front:
     build: ./rest
     restart: always
