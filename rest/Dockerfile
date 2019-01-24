@@ -3,7 +3,7 @@ COPY . /code
 workdir /code
 RUN cp -r nginx/* /etc/nginx/
 
-EXPOSE 80 5000
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 # RUN echo 'deb http://ftp.debian.org/debian stretch-backports main' >> /etc/apt/sources.list \
     # && apt-get update \

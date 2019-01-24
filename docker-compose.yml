@@ -3,8 +3,8 @@ services:
   flask:
     restart: always
     build: .
-    expose:
-      - '5000'
+    ports:
+      - '5000:5000'
     links:
       - mysql
     command: pipenv run gunicorn -w 4 -b 0.0.0.0:5000 wsgi:app
