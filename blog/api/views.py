@@ -338,10 +338,7 @@ class Articles(Resource):
     @marshal_with(articles_fields)
     def get(self):
         parser = reqparse.RequestParser()
-        parser.add_argument(
-            'page',
-            type=int,
-        )
+        parser.add_argument( 'page', type=int)
         args = parser.parse_args()
         page = args['page'] or 1
         items = current_app.config['PAGE_ITEMS']
