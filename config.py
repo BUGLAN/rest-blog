@@ -1,9 +1,16 @@
 import os
 
+USERNAME = os.getenv('USERNAME') or 'root'
+PASSWORD = os.getenv('PASSWORD') or 'root'
+HOST = os.getenv('HOST') or '127.0.0.1'
+PORT = os.getenv('PORT') or 3306
+DATABASE = os.getenv('DATABASE') or 'rest'
+
 
 class BaseConfig:
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:root@mysql: \
-            3306/rest?charset=utf8'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{}:{}@{}: \
+            {}/{}?charset=utf8'.format(USERNAME, PASSWORD, HOST, PORT,
+                                       DATABASE)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     PAGE_ITEMS = 10
     UPLOAD_FOLDER = os.path.join(os.getcwd(), 'dist', 'static', 'images')
@@ -13,8 +20,9 @@ class BaseConfig:
 
 
 class ProConfig:
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:root@mysql: \
-            3306/restblog?charset=utf8'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{}:{}@{}: \
+            {}/{}?charset=utf8'.format(USERNAME, PASSWORD, HOST, PORT,
+                                       DATABASE)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     PAGE_ITEMS = 10
     UPLOAD_FOLDER = os.path.join(os.getcwd(), 'dist', 'static', 'images')
@@ -33,8 +41,4 @@ class TestConfig:
     RESTFUL_JSON = dict(ensure_ascii=False)
 
 
-config = {
-        'dev': BaseConfig,
-        'pro': ProConfig,
-        'test': TestConfig
-        }
+config = {'dev': BaseConfig, 'pro': ProConfig, 'test': TestConfig}

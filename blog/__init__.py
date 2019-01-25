@@ -1,14 +1,16 @@
-from flask import Flask
-from flask_cors import CORS
+import os
 
-from config import config
-from extand import db
+from flask import Flask, render_template
+
 import pymysql
+from config import HOST, PASSWORD, USERNAME, config
+from extand import db
+from flask_cors import CORS
 
 
 def init_db():
     # create database if not exits && create all the table
-    conn = pymysql.connect(host='mysql', user='root', password='root')
+    conn = pymysql.connect(host=HOST, user=USERNAME, password=PASSWORD)
     conn.cursor().execute('CREATE DATABASE IF NOT EXISTS rest')
     conn.close()
     db.create_all()
@@ -17,12 +19,19 @@ def init_db():
 def create_app(config_name):
 
     app = Flask(
-        __name__, static_folder='../dist/static', template_folder='../dist')
+        __name__,
+        static_url_path='',
+        static_folder=os.path.abspath('./rest/dist/'),
+        template_folder=os.path.abspath('./rest/dist/'))
     app.config.from_object(config[config_name])
     db.init_app(app)
     CORS(app)
 
     app.before_first_request(init_db)
+
+    @app.route('/test')
+    def test():
+        return render_template('index.html')
 
     # 相关配置 相关路由
     #  from blog.main.views import m
