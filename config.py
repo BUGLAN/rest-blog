@@ -1,10 +1,18 @@
 import os
 
-USERNAME = os.getenv('USERNAME') or 'root'
-PASSWORD = os.getenv('PASSWORD') or 'root'
-HOST = os.getenv('HOST') or '127.0.0.1'
-PORT = os.getenv('PORT') or 3306
-DATABASE = os.getenv('DATABASE') or 'rest'
+env = os.getenv('ENV')
+if env == 'production':
+    USERNAME = os.getenv('USERNAME') or 'root'
+    PASSWORD = os.getenv('PASSWORD') or 'root'
+    HOST = os.getenv('HOST') or 'mysql'
+    PORT = os.getenv('PORT') or 3306
+    DATABASE = os.getenv('DATABASE') or 'rest'
+else:
+    USERNAME = os.getenv('USERNAME') or 'root'
+    PASSWORD = os.getenv('PASSWORD') or 'root'
+    HOST = '127.0.0.1'
+    PORT = os.getenv('PORT') or 3306
+    DATABASE = os.getenv('DATABASE') or 'rest'
 
 
 class BaseConfig:

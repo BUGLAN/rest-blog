@@ -1,22 +1,30 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
-import About from './views/About.vue'
 
-import Detail from './views/Detail'
-import Editor from './views/Editor'
-import Axis from './views/Axis'
-import Manage from './views/Manage'
-import BasicManage from './views/BasicManage'
-import Login from './views/Login'
+// import Home from './views/Home.vue'
+// import About from './views/About.vue'
+// import Detail from './views/Detail'
+// import Editor from './views/Editor'
+// import Axis from './views/Axis'
+// import Manage from './views/Manage'
+// import BasicManage from './views/BasicManage'
+// import Login from './views/Login'
 
-import NewTag from './components/NewTag'
-import EditorCategory from './components/EditorCategory'
-import EditorTag from './components/EditorTag'
-import NavArticles from './components/NavArticles'
-import NavContent from './components/NavContent'
-import NewArticle from './components/NewArticle'
-import NewCategory from './components/NewCategory'
+// import NewTag from './components/NewTag'
+// import EditorCategory from './components/EditorCategory'
+// import EditorTag from './components/EditorTag'
+// import NavArticles from './components/NavArticles'
+// import NavContent from './components/NavContent'
+// import NewArticle from './components/NewArticle'
+// import NewCategory from './components/NewCategory'
+
+function loadView (view) {
+  return () => import(/* webpackChunkName: "view-[request]" */ `@/views/${view}.vue`)
+}
+
+function loadComponent (component) {
+  return () => import(/* webpackChunkName: "component-[request]" */ `@/components/${component}.vue`)
+}
 
 Vue.use(Router)
 
@@ -25,11 +33,11 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: Home,
+      component: loadView('Home'),
       children: [
         {
           path: '',
-          component: NavArticles
+          component: loadComponent('NavArticles')
         }
       ]
     },
@@ -39,42 +47,42 @@ export default new Router({
     },
     {
       path: '/article',
-      component: Detail,
+      component: loadView('Detail'),
       children: [
         {
           path: ':date/:name',
-          component: NavContent
+          component: loadComponent('NavContent')
         },
         {
           path: ':date/:name/editor',
-          component: Editor
+          component: loadView('Editor')
         }
 
       ]
     },
     {
       path: '/about',
-      component: About
+      component: loadView('About')
     },
     {
       path: '/axis',
-      component: Axis
+      component: loadView('Axis')
     },
     {
       path: '/manage',
-      component: BasicManage,
+      component: loadView('BasicManage'),
       children: [
         {
           path: '',
-          component: Manage
+          component: loadView('Manage')
         },
         {
           path: 'category/:name/editor',
-          component: EditorCategory
+          component: loadComponent('EditorCategory')
         },
         {
           path: 'tag/:name/editor',
-          component: EditorTag
+          component: loadComponent('EditorTag')
         },
         {
           path: 'test',
@@ -84,19 +92,19 @@ export default new Router({
     },
     {
       path: '/new_article',
-      component: NewArticle
+      component: loadComponent('NewArticle')
     },
     {
       path: '/new_category',
-      component: NewCategory
+      component: loadComponent('NewCategory')
     },
     {
       path: '/new_tag',
-      component: NewTag
+      component: loadComponent('NewTag')
     },
     {
       path: '/login',
-      component: Login
+      component: loadView('Login')
     }
   ]
 })
